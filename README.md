@@ -1,4 +1,8 @@
-# Project title
+# Project title (change me)
+
+Check-list
+- [ ] Add e-mails of collaborators to project description (Settings > General), because the description is searchable. 
+- [ ] Make sure there is example data along with the usage instructions
 
 ## Description
 
