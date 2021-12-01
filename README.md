@@ -1,6 +1,7 @@
 # Project title (change me)
 
 Check-list
+- [ ] After forking this template, change the title, please still start with `cba-` such that we can easier find the projects.
 - [ ] Add e-mails of collaborators to project description (Settings > General), because the description is searchable. 
 - [ ] Make sure there is example data along with the usage instructions
 
