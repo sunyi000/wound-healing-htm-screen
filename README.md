@@ -4,6 +4,9 @@
 
 This project is about....
 
+For including screenshots, please put them in the "documentation" folder.
+
+
 ## Contributors
 
 Everyone that contributed
@@ -24,12 +27,14 @@ The people using the code (aka "users")
 
 To install the code, ...
 
+Please put the code into the "code" folder.
+
 ## Usage examples
 
 To run the code, ...
 
 Important: 
-- This should include links to **example input data** (if the data is small enough one mauy put them into the repo into the `data` folder)
+- This should include links to **example input data** (if the data is small enough one mauy put them into the repo into the "data" folder)
 - If applicable this should also contain parameters settings that work for the example data
 
 ## Tests
