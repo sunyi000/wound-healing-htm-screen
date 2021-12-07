@@ -1,3 +1,10 @@
+How to use this template project:
+1. clone this repo on your computer
+1. copy the template to a new folder with the name of the actual project, e.g.  `cp -r cba-support-template cba-new-project`
+1. `cd cba-new-project`
+1. `git remote set-url origin git@git.embl.de:grp-cba/cba-new-project.git`
+1. `git push` (this will create the repo on gitlab)
+
 # Project title (change me)
 
 Check-list
