@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.scijava</groupId>
+		<artifactId>pom-scijava</artifactId>
+		<version>31.1.0</version>
+	</parent>
+	<groupId>de.embl.cba</groupId>
+	<artifactId>FIXME</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<url>https://git.embl.de/grp-cba/FIXME</url>
+	<name>FIXME</name>
+	<description>FIXME</description>
+	<inceptionYear>FIXME</inceptionYear>
+	<organization>
+		<name>EMBL</name>
+		<url>http://embl.de/</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>Simplified BSD License</name>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>FIXME</id>
+			<name>FIXME</name>
+			<roles>
+				<role>lead</role>
+				<role>developer</role>
+				<role>debugger</role>
+				<role>reviewer</role>
+				<role>support</role>
+				<role>maintainer</role>
+			</roles>
+		</developer>
+	</developers>
+	<contributors>
+		<contributor>
+			<name>TODO</name>
+		</contributor>
+	</contributors>
+
+	<!-- mvn javadoc:javadoc -Denforcer.skip -->
+	<!-- mvn test -Denforcer.skip -->
+	<!-- mvn clean compile -Denforcer.skip -->
+	<!-- mvn clean install -Denforcer.skip -Dscijava.app.directory=/Users/tischer/Desktop/Fiji/Fiji-bdp2.app -->
+	<!-- mvn -Dtest=TestOpenTransformSave test -Denforcer.skip  -->
+
+	<properties>
+		<package-name>de.embl.cba.FIXME</package-name>
+		<license.licenseName>bsd_2</license.licenseName>
+		<license.copyrightOwners>EMBL</license.copyrightOwners>
+
+		<!-- NB: Deploy releases to the SciJava Maven repository. -->
+		<releaseProfiles>sign,deploy-to-scijava</releaseProfiles>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>scijava.public</id>
+			<url>https://maven.scijava.org/content/groups/public</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>ij</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.4.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.4.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
