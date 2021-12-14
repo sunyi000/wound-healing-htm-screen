@@ -27,30 +27,34 @@
 /*
 If you copy and paste below code into Fiji's script editor, it will run!
  */
-
 import ij.IJ
 import org.scijava.Context
 import org.scijava.command.Command
 import org.scijava.command.CommandService
 import org.scijava.plugin.Parameter
+import org.scijava.ui.UIService
 
-class MyCommand implements Command
+class FIXMECommand implements Command
 {
-    @Parameter (label="Please enter a small positive number", min="0", max="10")
+    @Parameter (label="Some number", autoFill = false)
     public Integer number;
 
-    @Parameter (label="Please enter a small negative number", min="-10", max="0")
-    public Integer anotherNumber;
+    @Parameter (label="2D single channel input image", autoFill = false)
+    public File inputImageFile;
 
     @Override
     void run() {
-        IJ.log("You entered: " + number)
-        IJ.log("You entered: " + anotherNumber)
+        IJ.log("You entered: "+number)
+
+        def imagePlus = IJ.openImage(inputImageFile.toString());
+        imagePlus.show()
     }
 
     static void main(String[] args) {
         def context = (Context) IJ.runPlugIn("org.scijava.Context", "");
         def commandService = context.getService(CommandService.class);
-        commandService.run( MyCommand.class, true );
+        def uIService = context.getService(UIService.class);
+        uIService.showUI();
+        commandService.run( FIXMECommand.class, true );
     }
 }
