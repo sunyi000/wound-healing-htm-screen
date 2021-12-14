@@ -1,5 +1,3 @@
-import ij.*
-
 /**
  *
  * Repository:
@@ -25,6 +23,12 @@ import ij.*
  *
  */
 
+import ij.IJ;
 
-def sampleImage = IJ.openImage("http://imagej.nih.gov/ij/images/blobs.gif")
-sampleImage.show()
+// PARAMETERS
+//
+def number = 10;
+
+// CODE
+//
+IJ.log("You entered: " + number)
