@@ -8,7 +8,7 @@
   </parent>
 
   <groupId>de.embl.cba</groupId>
-  <artifactId>firstname-lastname</artifactId>
+  <artifactId>FIXME</artifactId>
   <version>0.0.1</version>
 
   <build>
@@ -21,6 +21,8 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <!-- mvn clean compile -Denforcer.skip -->
 
   <repositories>
     <repository>

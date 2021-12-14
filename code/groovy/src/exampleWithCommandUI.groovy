@@ -39,9 +39,13 @@ class MyCommand implements Command
     @Parameter (label="Please enter a small positive number", min="0", max="10")
     public Integer number;
 
+    @Parameter (label="Please enter a small negative number", min="-10", max="0")
+    public Integer anotherNumber;
+
     @Override
     void run() {
         IJ.log("You entered: " + number)
+        IJ.log("You entered: " + anotherNumber)
     }
 
     static void main(String[] args) {
