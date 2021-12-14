@@ -27,7 +27,9 @@
 /*
 If you copy and paste below code into Fiji's script editor, it will run!
  */
+
 import ij.IJ
+import net.imagej.ops.OpService
 import org.scijava.Context
 import org.scijava.command.Command
 import org.scijava.command.CommandService
@@ -50,11 +52,10 @@ class FIXMECommand implements Command
         imagePlus.show()
     }
 
+    // main method that works both in Fiji and IntelliJ
     static void main(String[] args) {
         def context = (Context) IJ.runPlugIn("org.scijava.Context", "");
-        def commandService = context.getService(CommandService.class);
-        def uIService = context.getService(UIService.class);
-        uIService.showUI();
-        commandService.run( FIXMECommand.class, true );
+        context.getService(UIService.class).showUI();
+        context.getService(CommandService.class).run( FIXMECommand.class, true, "opService", context.getService(OpService.class) );
     }
 }
