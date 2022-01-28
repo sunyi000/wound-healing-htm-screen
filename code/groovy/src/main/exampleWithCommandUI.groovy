@@ -26,6 +26,8 @@
 
 /*
 If you copy and paste below code into Fiji's script editor, it will run!
+However, the Batch button will not work! See discussion:
+https://forum.image.sc/t/batch-button-not-working-for-groovy-command-script/61092
  */
 
 import ij.IJ
@@ -56,6 +58,6 @@ class FIXMECommand implements Command
     static void main(String[] args) {
         def context = (Context) IJ.runPlugIn("org.scijava.Context", "");
         context.getService(UIService.class).showUI();
-        context.getService(CommandService.class).run( FIXMECommand.class, true, "opService", context.getService(OpService.class) );
+        context.getService(CommandService.class).run(FIXMECommand.class, true, "opService", context.getService(OpService.class) );
     }
 }
