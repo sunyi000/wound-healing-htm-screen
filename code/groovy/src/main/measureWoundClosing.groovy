@@ -77,8 +77,9 @@ if (showResults) {
 // create output directory
 def outputDir = new File( inputDir.getParent(), "analysis" );
 outputDir.mkdir()
-rt.save( new File( outputDir, regExp + ".csv" ).toString() );
+def dataId = regExp.replace(".*", "")
+rt.save( new File( outputDir, dataId + ".csv" ).toString() );
 imp.setRoi(scratchROI, false)
-IJ.save(imp, new File( outputDir, regExp + ".tif" ).toString() );
+IJ.save(imp, new File( outputDir, dataId + ".tif" ).toString() );
 
 println("Analysis of "+regExp+" is done!")
