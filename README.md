@@ -1,34 +1,9 @@
-How to use this template project:
-1. clone this repo on your computer
-1. copy the template to a new folder with the name of the actual project, e.g.  `cp -r cba-support-template cba-NEW-PROJECT` (here and in all the lines of code below **replace** `-NEW-PROJECT` with the proper name of your choice)
-1. `cd cba-NEW-PROJECT`
-1. `git remote set-url origin git@git.embl.de:grp-cba/cba-NEW-PROJECT.git`
-1. `git push` (this will create the repo on gitlab) _Note: This worked for Tischi, but not for Arif, Arif is asking IT why it did not work._
-
-# Project title (change me)
-
-Check-list
-- [ ] After forking this template, change the title, please still start with `cba-` such that we can easier find the projects.
-- [ ] Add e-mails of collaborators to project description (Settings > General), because the description is searchable. 
-- [ ] Make sure there is example data along with the usage instructions
+# Wound healing assay HTM analysis
 
 ## Description
 
-This project is about....
+This project is about quantification of wound healing in microscopy scratch assays.
 
-For including screenshots, please put them in the "documentation" folder.
-
-
-## Contributors
-
-Everyone that contributed
-- some-mail@embl.de
-- some-other-mail@embl.de
-
-## Main contact person
-
-The main contact person (typically one of the contributors)
-- some-mail@embl.de
 
 ## Collaborators
 

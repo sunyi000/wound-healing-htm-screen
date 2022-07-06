@@ -45,6 +45,14 @@
       <artifactId>imagej-plugins-commands</artifactId>
     </dependency>
     <dependency>
+      <groupId>fr.inra.ijpb</groupId>
+      <artifactId>MorphoLibJ_</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>sc.fiji</groupId>
+      <artifactId>Auto_Threshold</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-all</artifactId>
       <version>3.0.9</version>
