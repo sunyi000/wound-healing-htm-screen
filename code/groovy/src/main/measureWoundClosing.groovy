@@ -10,76 +10,99 @@
 import fiji.threshold.Auto_Threshold
 import ij.IJ
 import ij.ImageJ
-import ij.io.FileSaver
+import ij.ImagePlus
 import ij.plugin.FolderOpener
 import ij.plugin.frame.RoiManager
+import ij.process.ImageProcessor
 import inra.ijpb.binary.BinaryImages
 import inra.ijpb.label.LabelImages
+import inra.ijpb.morphology.Morphology
+import inra.ijpb.morphology.Reconstruction
+import inra.ijpb.morphology.strel.SquareStrel
+import inra.ijpb.plugins.FillHolesPlugin
 import inra.ijpb.segment.Threshold
 
+// INPUT UI
+//
 //#@ String (label = "Regular expression") regExp
-//#@ Boolean (label = "Show intermediate results") showIntermediateResults
+//#@ File (label = "Input directory", style="directory") inputDir
+//#@ Boolean (label = "Show results", default="false") showResults
 
 // INPUT PARAMETERS
-//
+// for developing in an IDE
 def regExp = "M1_D5_.*";
-def filterRadiusPixels = 20
+def cellDiameter = 20
+def scratchDiameter = 500
+def binningFactor = 2
 def inputDir = new File("/Users/tischer/Desktop/daniel-heid/single-images/")
-def showResults = false;
+def showResults = true;
 
-// OTHER PARAMETERS
+// DERIVED OR FIXED PARAMETERS
 //
+def cellFilterRadius = cellDiameter/2.0F/binningFactor
+def scratchFilterRadius = scratchDiameter/10.0F/binningFactor
 
 // CODE
 //
-
-
 if (showResults) new ImageJ().setVisible(true)
 
 // open
 def imp = FolderOpener.open(inputDir.toString(), " filter=("+regExp+")")
-
-// binarise cells
+// remove scaling to work in pixel units
+IJ.run(imp,"Properties...", "pixel_width=1 pixel_height=1 voxel_depth=1");
+// bin to save compute time
+IJ.run(imp, "Bin...", "x=" + binningFactor + " y=" + binningFactor + " z=1 bin=Average");
+// enhance cells
+IJ.run(imp, "Variance...", "radius=" + cellFilterRadius + " stack");
+// invert (we are interested in the cell free region)
+IJ.run(imp, "Invert", "stack")
+// create binary image (cell-free regions are fore-ground)
 IJ.run("Options...", "iterations=1 count=1 black");
-IJ.run(imp, "Variance...", "radius=" + filterRadiusPixels + " stack");
-IJ.run(imp, "Invert", "stack");
-def otsu = Auto_Threshold.Otsu(imp.getProcessor().getHistogram())
-imp = Threshold.threshold( imp, otsu, 65535 )
-
-// create scratch ROI
+// determine threshold in first frame, because there we are
+// closest to a 50/50 occupancy of the image with signal,
+// which is best for most auto-thresholding algorithms
 imp.setPosition(1)
-firstFrameImp = imp.crop("whole-slice");
-firstFrameImp.setTitle("First frame")
-firstFrameImp = BinaryImages.keepLargestRegion(firstFrameImp)
-IJ.run(firstFrameImp, "Fill Holes", "");
-IJ.run(firstFrameImp, "Minimum...", "radius=" + filterRadiusPixels );
-IJ.run(firstFrameImp, "Maximum...", "radius=" + filterRadiusPixels);
-IJ.run(firstFrameImp, "Create Selection", "");
-def scratchROI = firstFrameImp.getRoi()
+def otsu = Auto_Threshold.Otsu(imp.getProcessor().getHistogram())
+def binaryImp = Threshold.threshold(imp, otsu, Math.pow(2, imp.getBitDepth()))
+
+// create scratch ROI in first frame
+//
+binaryImp.setPosition(1)
+def scratchIp = binaryImp.crop("whole-slice").getProcessor();
+// identify largest cell free region as scratch region
+scratchIp = BinaryImages.keepLargestRegion(scratchIp)
+// remove cells inside of scratch region
+scratchIp = Reconstruction.fillHoles(scratchIp)
+// smoothen edges of scratch region
+scratchIp = Morphology.opening(scratchIp, SquareStrel.fromRadius((int) scratchFilterRadius))
+// convert binary image to ROI
+def scratchImp = new ImagePlus("Binary Scratch", scratchIp)
+IJ.run(scratchImp, "Create Selection", "");
+def scratchROI = scratchImp.getRoi()
 
 // measure occupancy of scratch ROI
 IJ.run("Set Measurements...", "area_fraction redirect=None decimal=0");
 def rm = new RoiManager(false)
 rm.addRoi(scratchROI)
 rm.select(0)
-def rt = rm.multiMeasure(imp)
+def rt = rm.multiMeasure(binaryImp)
 
 // show
 if (showResults) {
     rt.show("Results")
-    imp.show()
-    imp.setRoi(scratchROI, true)
-    firstFrameImp.show()
+    binaryImp.show()
+    binaryImp.setRoi(scratchROI, true)
 }
 
 // save
+// TODO: what to save exactly?
 
 // create output directory
 def outputDir = new File( inputDir.getParent(), "analysis" );
 outputDir.mkdir()
 def dataId = regExp.replace(".*", "")
 rt.save( new File( outputDir, dataId + ".csv" ).toString() );
-imp.setRoi(scratchROI, false)
-IJ.save(imp, new File( outputDir, dataId + ".tif" ).toString() );
+binaryImp.setRoi(scratchROI, false)
+IJ.save(binaryImp, new File( outputDir, dataId + ".tif" ).toString() );
 
 println("Analysis of "+regExp+" is done!")
