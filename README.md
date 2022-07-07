@@ -4,32 +4,21 @@
 
 This project is about quantification of wound healing in microscopy scratch assays.
 
-
 ## Collaborators
 
-The people using the code (aka "users")
-- some-mail@embl.de
+- daniel.heid@embl.de
+- christian.tischer@embl.de
 
 ## Installation instructions
 
-To install the code, ...
 
-Please put the code into the "code" folder.
-
-## Usage examples
-
-To run the code, ...
-
-Important: 
-- This should include links to **example input data** (if the data is small enough one mauy put them into the repo into the "data" folder)
-- If applicable this should also contain parameters settings that work for the example data
 
 ### Batch analysis with nextflow
 
+- go to https://jupyterhub.embl.de
 - `cd ./code/nextflow`
-- `rm -rf work; nextflow run wound_healing.nf; cat work/*/*/.command.log`
-- clean up (e.g. before `git commit`)
-  - `rm -rf .next*; rm -rf work`
+- run the nextflow script
+  - `rm -rf work; nextflow run woundHealing.nf; cat work/*/*/.command.log; rm -rf .next*; rm -rf work`
 
 
 ## Tests
