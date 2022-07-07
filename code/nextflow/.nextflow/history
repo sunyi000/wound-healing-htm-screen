@@ -1,6 +1,0 @@
-2022-07-07 14:09:51	3.2s	ridiculous_goldberg	OK	252f511d859fa95eae7d20301c29f434	9b2fc718-7e6c-4dd0-ac9d-8658b857ac6b	nextflow run wound_healing.nf
-2022-07-07 14:16:47	2.7s	clever_woese	OK	252f511d859fa95eae7d20301c29f434	c05cb88f-5311-48a5-8c84-0e2981984348	nextflow run wound_healing.nf
-2022-07-07 14:33:11	18.3s	silly_stonebraker	OK	c06fe122c2371e206456da860ac4445a	57453157-c9cb-4013-a63d-d856ee5cc9b0	nextflow run wound_healing.nf
-2022-07-07 14:34:55	14.4s	hopeful_volta	OK	657b462b8ef8292c286cd30865d35340	c43a537a-bfe5-4adb-8b21-37c2c64cba7b	nextflow run wound_healing.nf
-2022-07-07 14:41:29	14.9s	distraught_bardeen	OK	657b462b8ef8292c286cd30865d35340	3639f77d-84dd-41a4-ab00-01b7994e28cf	nextflow run wound_healing.nf
-2022-07-07 15:01:09	22.4s	infallible_hugle	OK	3935a13c95a5f1292a0f4628dfcf284e	dd436b3c-288b-4351-9810-6684a143ea48	nextflow run wound_healing.nf
