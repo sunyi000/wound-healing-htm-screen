@@ -1,0 +1,49 @@
+Jul-07 17:39:21.680 [main] DEBUG nextflow.cli.Launcher - $> nextflow run wound_healing.nf
+Jul-07 17:39:21.824 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.0
+Jul-07 17:39:22.040 [main] INFO  nextflow.cli.CmdRun - Launching `wound_healing.nf` [desperate_archimedes] DSL2 - revision: 7964b6862a
+Jul-07 17:39:22.072 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/Users/tischer/.nextflow/plugins; core-plugins: nf-amazon@1.7.1,nf-azure@0.13.1,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
+Jul-07 17:39:22.078 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Jul-07 17:39:22.097 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Jul-07 17:39:22.100 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Jul-07 17:39:22.105 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Jul-07 17:39:22.120 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Jul-07 17:39:22.219 [main] DEBUG nextflow.Session - Session uuid: 2383686b-d534-487d-a14d-3a20206fc6e2
+Jul-07 17:39:22.219 [main] DEBUG nextflow.Session - Run name: desperate_archimedes
+Jul-07 17:39:22.221 [main] DEBUG nextflow.Session - Executor pool size: 4
+Jul-07 17:39:22.252 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 22.04.0 build 5697
+  Created: 23-04-2022 18:00 UTC (20:00 CEST)
+  System: Mac OS X 10.14.6
+  Runtime: Groovy 3.0.10 on OpenJDK 64-Bit Server VM 1.8.0_312-b07
+  Encoding: UTF-8 (UTF-8)
+  Process: 98353@mac-almf13.local [192.168.2.100]
+  CPUs: 4 - Mem: 16 GB (362.8 MB) - Swap: 2 GB (894 MB)
+Jul-07 17:39:22.268 [main] DEBUG nextflow.Session - Work-dir: /Users/tischer/Documents/daniel-heid-wound-healing/code/nextflow/work [Mac OS X]
+Jul-07 17:39:22.269 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /Users/tischer/Documents/daniel-heid-wound-healing/code/nextflow/bin
+Jul-07 17:39:22.285 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Jul-07 17:39:22.300 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Jul-07 17:39:22.342 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Jul-07 17:39:22.369 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 5; maxThreads: 1000
+Jul-07 17:39:22.597 [main] DEBUG nextflow.Session - Session start invoked
+Jul-07 17:39:23.704 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Jul-07 17:39:23.955 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Jul-07 17:39:23.955 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Jul-07 17:39:23.962 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Jul-07 17:39:23.970 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=4; memory=16 GB; capacity=4; pollInterval=100ms; dumpInterval=5m
+Jul-07 17:39:24.096 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: measureHealing, echoKeys
+Jul-07 17:39:24.097 [main] DEBUG nextflow.Session - Ignite dataflow network (2)
+Jul-07 17:39:24.109 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > measureHealing
+Jul-07 17:39:24.112 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Jul-07 17:39:24.112 [main] DEBUG nextflow.Session - Session await
+Jul-07 17:39:24.112 [PathVisitor-1] DEBUG nextflow.file.PathVisitor - files for syntax: glob; folder: /Users/tischer/Documents/daniel-heid-wound-healing/data/input/; pattern: *.tif; options: [checkIfExists:true]
+Jul-07 17:39:24.410 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Jul-07 17:39:24.416 [Task submitter] INFO  nextflow.Session - [cc/f51c68] Submitted process > measureHealing (2)
+Jul-07 17:39:24.424 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Jul-07 17:39:24.425 [Task submitter] INFO  nextflow.Session - [8b/38df02] Submitted process > measureHealing (1)
+Jul-07 17:39:42.244 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: measureHealing (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/tischer/Documents/daniel-heid-wound-healing/code/nextflow/work/8b/38df026dd616014229f8548ba4873e]
+Jul-07 17:39:42.521 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: measureHealing (2); status: COMPLETED; exit: 0; error: -; workDir: /Users/tischer/Documents/daniel-heid-wound-healing/code/nextflow/work/cc/f51c68cb02e0a43ff1fccfe11ff609]
+Jul-07 17:39:42.525 [main] DEBUG nextflow.Session - Session await > all process finished
+Jul-07 17:39:42.626 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Jul-07 17:39:42.640 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=2; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=35.8s; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=2; peakCpus=2; peakMemory=0; ]
+Jul-07 17:39:42.883 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Jul-07 17:39:42.895 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

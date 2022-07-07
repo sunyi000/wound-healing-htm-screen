@@ -16,6 +16,7 @@ import ij.measure.Measurements
 import ij.measure.ResultsTable
 import ij.plugin.FolderOpener
 import ij.plugin.filter.Analyzer
+import ij.plugin.filter.ThresholdToSelection
 import ij.plugin.frame.RoiManager
 import inra.ijpb.binary.BinaryImages
 import inra.ijpb.morphology.Morphology
@@ -26,7 +27,7 @@ import inra.ijpb.segment.Threshold
 // INPUT UI
 //
 #@ File (label="Input directory", style="directory") inputDir
-#@ String (label="Regular expression") regExp
+#@ String (label="Dataset id") datasetId
 #@ Boolean (label="Run headless", default="false") headless
 
 //#@ File (label = "Input directory", style="directory") inputDir
@@ -53,8 +54,8 @@ def scratchFilterRadius = scratchDiameter/10.0F/binningFactor
 if (!headless) new ImageJ().setVisible(true)
 
 // open
-println("Opening " + regExp + "...")
-def imp = FolderOpener.open(inputDir.toString(), " filter=("+regExp+")")
+println("Opening " + datasetId + "...")
+def imp = FolderOpener.open(inputDir.toString(), " filter=(.*"+datasetId+".*)")
 if ( imp == null  || imp.getNSlices() == 0 ) {
     println("Could not find any files matching the pattern!")
     System.exit(1)
@@ -117,12 +118,11 @@ if (!headless) {
 def outputDir = new File( inputDir.getParent(), "analysis" );
 println("Ensuring existence of output directory: " + outputDir)
 outputDir.mkdir()
-def dataId = regExp.replace(".*", "")
-rt.save( new File( outputDir, dataId + ".csv" ).toString() );
+rt.save( new File( outputDir, datasetId + ".csv" ).toString() );
 binaryImp.setRoi(scratchROI, false)
-IJ.save(binaryImp, new File( outputDir, dataId + ".tif" ).toString() );
+IJ.save(binaryImp, new File( outputDir, datasetId + ".tif" ).toString() );
 
-println("Analysis of "+regExp+" is done!")
+println("Analysis of "+datasetId+" is done!")
 if ( headless ) System.exit(0)
 
 // copied from RoiManager
