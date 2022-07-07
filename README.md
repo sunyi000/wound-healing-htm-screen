@@ -24,6 +24,14 @@ Important:
 - This should include links to **example input data** (if the data is small enough one mauy put them into the repo into the "data" folder)
 - If applicable this should also contain parameters settings that work for the example data
 
+### Batch analysis with nextflow
+
+- `cd ./code/nextflow`
+- `rm -rf work; nextflow run wound_healing.nf; cat work/*/*/.command.log`
+- clean up (e.g. before `git commit`)
+  - `rm -rf .next*; rm -rf work`
+
+
 ## Tests
 
 To check whether the code is working, ...

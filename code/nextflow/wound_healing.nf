@@ -1,6 +1,26 @@
 nextflow.enable.dsl=2
 
-inputFiles = '/Users/tischer/Documents/daniel-heid-wound-healing/data/input/*.tif'
+// input parameters
+inputDir = '/Users/tischer/Documents/daniel-heid-wound-healing/data/input'
+outputDir = '/Users/tischer/Documents/daniel-heid-wound-healing/data/output'
+fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx --headless --run'
+wound_healing_fiji_script = '/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy'
+
+// derived parameters
+inputFiles = inputDir + "/*.tif"
+
+process measureHealing {
+  input:
+    tuple val(key), file(samples)
+
+  shell:
+  '''
+  echo "Processing dataset: " !{key}
+  echo "Contained files: " !{samples}
+  !{fiji} !{wound_healing_fiji_script} "inputDir='!{inputDir}',regExp='!{key}.*',headless='true'"
+  '''
+}
+
 
 process echoKeys {
   input:
@@ -17,11 +37,11 @@ process echoKeys {
 workflow {
   Channel.fromPath(inputFiles, checkIfExists:true) \
     | map { file ->
-      println "Parsing: " + file.name
+      //println "Parsing: " + file.name
       def fileNameSplit = file.name.toString().tokenize('_')
-      def key = fileNameSplit.get(0) + fileNameSplit.get(1)
+      def key = fileNameSplit.get(0) + "_" + fileNameSplit.get(1) + "_"
       return tuple(key, file)
     } \
     | groupTuple() \
-    | echoKeys
+    | measureHealing
 }
