@@ -1,0 +1,13 @@
+2022-07-07 13:43:50	-	infallible_coulomb	-	a171c219c50f739f0f707eb91f00fb3a	236f0606-7f9a-444d-bead-5e25cf2fe54a	nextflow run wound_healing.nf
+2022-07-07 13:44:12	2.5s	friendly_turing	ERR	619b3fcbf7add20f3129b229cf25fd06	21251fe0-dab4-4d62-a874-3d9777f361bb	nextflow run wound_healing.nf
+2022-07-07 13:47:07	3.1s	silly_almeida	ERR	6cf89e9b33456f57541f53daf0ad9a11	f49460ba-2805-49c0-a4a1-fe40e29f4dc8	nextflow run wound_healing.nf
+2022-07-07 13:51:17	3.1s	drunk_bell	ERR	905a1f24360159f76f881e0da60c14c1	6b244fda-f260-4763-ac8a-547edd22e622	nextflow run wound_healing.nf
+2022-07-07 13:51:49	3.2s	amazing_kowalevski	OK	4b78822e0c3f9a798ab7575560867101	ed1bad82-6d94-4481-8825-9e2e745ce03b	nextflow run wound_healing.nf
+2022-07-07 13:53:08	2.7s	nasty_kirch	OK	04f95e56328118093f1a143af0cff24d	7d6118ab-278a-4dd5-8ea8-cb2415e379d8	nextflow run wound_healing.nf
+2022-07-07 13:53:59	3s	deadly_carlsson	OK	f09c514b205b341c7e7550e5d6254577	0d20389b-ffc6-45db-8555-1f7a71a17f5c	nextflow run wound_healing.nf
+2022-07-07 14:02:28	2.9s	shrivelled_cantor	OK	f09c514b205b341c7e7550e5d6254577	79632b4a-9645-4a9e-a149-c784276a0cc7	nextflow run wound_healing.nf
+2022-07-07 14:02:55	3s	pedantic_heyrovsky	OK	a6f16c41111b9c527d2529cfc13ed49b	390d9641-c85e-4549-86ec-742bb9437da2	nextflow run wound_healing.nf
+2022-07-07 14:04:42	-	mighty_goodall	-	d4ec53cac264fcda63887c254ab25fbe	b2c3ef62-5eb5-49bf-88c3-5cb3ba14d926	nextflow run wound_healing.nf
+2022-07-07 14:05:24	-	gloomy_gautier	-	d4ec53cac264fcda63887c254ab25fbe	64cb22b6-ba28-4d10-ab1f-1e35cdacd47f	nextflow run wound_healing.nf
+2022-07-07 14:07:31	-	sad_torvalds	-	8d7b620f9d77de6bbf15b9676fc2d38c	96da48e7-bc48-402e-a849-af5cb2c08b55	nextflow run wound_healing.nf
+2022-07-07 14:08:24	3.2s	berserk_northcutt	OK	252f511d859fa95eae7d20301c29f434	8357b546-570e-4e2a-bb66-43c467f4dd84	nextflow run wound_healing.nf

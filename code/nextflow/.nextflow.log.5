@@ -1,0 +1,73 @@
+Jul-07 14:02:28.082 [main] DEBUG nextflow.cli.Launcher - $> nextflow run wound_healing.nf
+Jul-07 14:02:28.249 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.0
+Jul-07 14:02:28.384 [main] INFO  nextflow.cli.CmdRun - Launching `wound_healing.nf` [shrivelled_cantor] DSL2 - revision: f09c514b20
+Jul-07 14:02:28.399 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/Users/tischer/.nextflow/plugins; core-plugins: nf-amazon@1.7.1,nf-azure@0.13.1,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
+Jul-07 14:02:28.402 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Jul-07 14:02:28.419 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Jul-07 14:02:28.422 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Jul-07 14:02:28.427 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Jul-07 14:02:28.446 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Jul-07 14:02:28.517 [main] DEBUG nextflow.Session - Session uuid: 79632b4a-9645-4a9e-a149-c784276a0cc7
+Jul-07 14:02:28.517 [main] DEBUG nextflow.Session - Run name: shrivelled_cantor
+Jul-07 14:02:28.519 [main] DEBUG nextflow.Session - Executor pool size: 4
+Jul-07 14:02:28.547 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 22.04.0 build 5697
+  Created: 23-04-2022 18:00 UTC (20:00 CEST)
+  System: Mac OS X 10.14.6
+  Runtime: Groovy 3.0.10 on OpenJDK 64-Bit Server VM 1.8.0_312-b07
+  Encoding: UTF-8 (UTF-8)
+  Process: 94820@mac-almf13.local [10.11.143.141]
+  CPUs: 4 - Mem: 16 GB (485.2 MB) - Swap: 4 GB (1.6 GB)
+Jul-07 14:02:28.567 [main] DEBUG nextflow.Session - Work-dir: /Users/tischer/Documents/daniel-heid-wound-healing/code/nextflow/work [Mac OS X]
+Jul-07 14:02:28.568 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /Users/tischer/Documents/daniel-heid-wound-healing/code/nextflow/bin
+Jul-07 14:02:28.580 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Jul-07 14:02:28.595 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Jul-07 14:02:28.629 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Jul-07 14:02:28.642 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 5; maxThreads: 1000
+Jul-07 14:02:28.826 [main] DEBUG nextflow.Session - Session start invoked
+Jul-07 14:02:29.953 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Jul-07 14:02:30.200 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Jul-07 14:02:30.201 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Jul-07 14:02:30.207 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Jul-07 14:02:30.211 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=4; memory=16 GB; capacity=4; pollInterval=100ms; dumpInterval=5m
+Jul-07 14:02:30.332 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: echoKeys
+Jul-07 14:02:30.333 [main] DEBUG nextflow.Session - Ignite dataflow network (2)
+Jul-07 14:02:30.342 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > echoKeys
+Jul-07 14:02:30.342 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Jul-07 14:02:30.343 [main] DEBUG nextflow.Session - Session await
+Jul-07 14:02:30.346 [PathVisitor-1] DEBUG nextflow.file.PathVisitor - files for syntax: glob; folder: /Users/tischer/Documents/daniel-heid-wound-healing/data/input/; pattern: *.tif; options: [checkIfExists:true]
+Jul-07 14:02:30.363 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0040.tif
+Jul-07 14:02:30.376 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0044.tif
+Jul-07 14:02:30.376 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0009.tif
+Jul-07 14:02:30.377 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0020.tif
+Jul-07 14:02:30.377 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0008.tif
+Jul-07 14:02:30.377 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0008.tif
+Jul-07 14:02:30.378 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0036.tif
+Jul-07 14:02:30.379 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0032.tif
+Jul-07 14:02:30.379 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0024.tif
+Jul-07 14:02:30.380 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0000.tif
+Jul-07 14:02:30.380 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0028.tif
+Jul-07 14:02:30.381 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0000.tif
+Jul-07 14:02:30.381 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0001.tif
+Jul-07 14:02:30.381 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0003.tif
+Jul-07 14:02:30.382 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0016.tif
+Jul-07 14:02:30.383 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0002.tif
+Jul-07 14:02:30.384 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0006.tif
+Jul-07 14:02:30.385 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0012.tif
+Jul-07 14:02:30.385 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0007.tif
+Jul-07 14:02:30.385 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0011.tif
+Jul-07 14:02:30.386 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0005.tif
+Jul-07 14:02:30.389 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_D5_0004.tif
+Jul-07 14:02:30.389 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0004.tif
+Jul-07 14:02:30.390 [Actor Thread 4] INFO  nextflow.script.BaseScript - M1_C2_0010.tif
+Jul-07 14:02:30.550 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Jul-07 14:02:30.555 [Task submitter] INFO  nextflow.Session - [4d/a07845] Submitted process > echoKeys (1)
+Jul-07 14:02:30.567 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Jul-07 14:02:30.568 [Task submitter] INFO  nextflow.Session - [a8/4cc61c] Submitted process > echoKeys (2)
+Jul-07 14:02:30.681 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: echoKeys (1); status: COMPLETED; exit: 0; error: -; workDir: /Users/tischer/Documents/daniel-heid-wound-healing/code/nextflow/work/4d/a07845afa9c38942a811c093ece296]
+Jul-07 14:02:30.689 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: echoKeys (2); status: COMPLETED; exit: 0; error: -; workDir: /Users/tischer/Documents/daniel-heid-wound-healing/code/nextflow/work/a8/4cc61cc33b64fed428c2dc96a90246]
+Jul-07 14:02:30.694 [main] DEBUG nextflow.Session - Session await > all process finished
+Jul-07 14:02:30.781 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Jul-07 14:02:30.789 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=2; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=106ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=2; peakCpus=2; peakMemory=0; ]
+Jul-07 14:02:30.919 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Jul-07 14:02:30.932 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

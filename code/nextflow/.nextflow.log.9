@@ -1,0 +1,91 @@
+Jul-07 13:51:17.468 [main] DEBUG nextflow.cli.Launcher - $> nextflow run wound_healing.nf
+Jul-07 13:51:17.620 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.0
+Jul-07 13:51:17.775 [main] INFO  nextflow.cli.CmdRun - Launching `wound_healing.nf` [drunk_bell] DSL2 - revision: 905a1f2436
+Jul-07 13:51:17.797 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/Users/tischer/.nextflow/plugins; core-plugins: nf-amazon@1.7.1,nf-azure@0.13.1,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
+Jul-07 13:51:17.799 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Jul-07 13:51:17.814 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Jul-07 13:51:17.816 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Jul-07 13:51:17.824 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Jul-07 13:51:17.839 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Jul-07 13:51:17.931 [main] DEBUG nextflow.Session - Session uuid: 6b244fda-f260-4763-ac8a-547edd22e622
+Jul-07 13:51:17.931 [main] DEBUG nextflow.Session - Run name: drunk_bell
+Jul-07 13:51:17.934 [main] DEBUG nextflow.Session - Executor pool size: 4
+Jul-07 13:51:17.962 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 22.04.0 build 5697
+  Created: 23-04-2022 18:00 UTC (20:00 CEST)
+  System: Mac OS X 10.14.6
+  Runtime: Groovy 3.0.10 on OpenJDK 64-Bit Server VM 1.8.0_312-b07
+  Encoding: UTF-8 (UTF-8)
+  Process: 94416@mac-almf13.local [10.11.143.141]
+  CPUs: 4 - Mem: 16 GB (693.5 MB) - Swap: 4 GB (1.6 GB)
+Jul-07 13:51:17.977 [main] DEBUG nextflow.Session - Work-dir: /Users/tischer/Documents/daniel-heid-wound-healing/code/nextflow/work [Mac OS X]
+Jul-07 13:51:17.977 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /Users/tischer/Documents/daniel-heid-wound-healing/code/nextflow/bin
+Jul-07 13:51:17.993 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Jul-07 13:51:18.008 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Jul-07 13:51:18.043 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Jul-07 13:51:18.060 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 5; maxThreads: 1000
+Jul-07 13:51:18.292 [main] DEBUG nextflow.Session - Session start invoked
+Jul-07 13:51:19.479 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Jul-07 13:51:19.726 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Jul-07 13:51:19.726 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Jul-07 13:51:19.734 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Jul-07 13:51:19.743 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=4; memory=16 GB; capacity=4; pollInterval=100ms; dumpInterval=5m
+Jul-07 13:51:19.883 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: echoKeys
+Jul-07 13:51:19.884 [main] DEBUG nextflow.Session - Ignite dataflow network (2)
+Jul-07 13:51:19.892 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > echoKeys
+Jul-07 13:51:19.893 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Jul-07 13:51:19.894 [main] DEBUG nextflow.Session - Session await
+Jul-07 13:51:19.898 [Actor Thread 4] INFO  nextflow.script.BaseScript - input
+Jul-07 13:51:19.903 [Actor Thread 4] ERROR nextflow.extension.OperatorEx - @unknown
+java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+	at java.util.ArrayList.rangeCheck(ArrayList.java:659)
+	at java.util.ArrayList.get(ArrayList.java:435)
+	at java_util_List$get$4.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+	at Script_19a14398$_runScript_closure2$_closure4$_closure5.doCall(Script_19a14398:22)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:38)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+	at nextflow.extension.MapOp$_apply_closure1.doCall(MapOp.groovy:57)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at groovy.lang.Closure.call(Closure.java:412)
+	at groovyx.gpars.dataflow.operator.DataflowOperatorActor.startTask(DataflowOperatorActor.java:120)
+	at groovyx.gpars.dataflow.operator.DataflowOperatorActor.onMessage(DataflowOperatorActor.java:108)
+	at groovyx.gpars.actor.impl.SDAClosure$1.call(SDAClosure.java:43)
+	at groovyx.gpars.actor.AbstractLoopingActor.runEnhancedWithoutRepliesOnMessages(AbstractLoopingActor.java:293)
+	at groovyx.gpars.actor.AbstractLoopingActor.access$400(AbstractLoopingActor.java:30)
+	at groovyx.gpars.actor.AbstractLoopingActor$1.handleMessage(AbstractLoopingActor.java:93)
+	at groovyx.gpars.util.AsyncMessagingCore.run(AsyncMessagingCore.java:132)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Jul-07 13:51:19.914 [Actor Thread 4] DEBUG nextflow.Session - Session aborted -- Cause: Index: 1, Size: 1
+Jul-07 13:51:19.931 [Actor Thread 4] DEBUG nextflow.Session - The following nodes are still active:
+[process] echoKeys
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+Jul-07 13:51:19.933 [main] DEBUG nextflow.Session - Session await > all process finished
+Jul-07 13:51:19.933 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Jul-07 13:51:19.943 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=0; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=0ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=0; peakCpus=0; peakMemory=0; ]
+Jul-07 13:51:20.137 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Jul-07 13:51:20.149 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
