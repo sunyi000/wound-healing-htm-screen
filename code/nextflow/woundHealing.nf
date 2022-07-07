@@ -1,10 +1,12 @@
 nextflow.enable.dsl=2
 
 // input parameters
-inputDir = '/Users/tischer/Documents/daniel-heid-wound-healing/data/input'
-outputDir = '/Users/tischer/Documents/daniel-heid-wound-healing/data/output'
-fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx --headless --run'
-wound_healing_fiji_script = '/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy'
+userDir = '/Users/tischer/Documents' // tischi's mac
+//userDir = '??' // jupyter desktop
+inputDir = userDir + '/daniel-heid-wound-healing/data/input'
+wound_healing_fiji_script = userDir + '/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy'
+fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx --headless --run' // tischi's mac
+// fiji = 'fiji --headless --run' // jupyter desktop
 
 // derived parameters
 inputFiles = inputDir + "/*.tif"

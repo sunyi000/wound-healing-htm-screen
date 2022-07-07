@@ -16,7 +16,16 @@ This project is about quantification of wound healing in microscopy scratch assa
 ### Batch analysis with nextflow
 
 - go to https://jupyterhub.embl.de
-- `cd ./code/nextflow`
+- choose "Image Analysis GPU"
+- open a terminal window
+- fetch this repo (only need to do this the first time): 
+  - `git clone https://git.embl.de/grp-cba/daniel-heid-wound-healing.git` 
+- `cd daniel-heid-wound-healing`
+- update all scripts:
+  - `git pull`
+- go to the nextflow folder:
+  - `cd ./code/nextflow`
+- TODO: specify the input data directory
 - run the nextflow script
   - `rm -rf work; nextflow run woundHealing.nf; cat work/*/*/.command.log; rm -rf .next*; rm -rf work`
 
