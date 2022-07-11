@@ -1,11 +1,12 @@
 nextflow.enable.dsl=2
 
 // input parameters
-// - how to get the current dir? using groovy?
-inputDir = '/home/tischer/daniel-heid-wound-healing/data/input'
-fiji = 'fiji --headless --run'
-//fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx --headless --run'
-wound_healing_fiji_script = '/home/tischer/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy'
+userDir = '/Users/tischer/Documents' // tischi's mac
+//userDir = '??' // jupyter desktop
+inputDir = userDir + '/daniel-heid-wound-healing/data/input'
+wound_healing_fiji_script = userDir + '/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy'
+fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx --headless --run' // tischi's mac
+// fiji = 'fiji --headless --run' // jupyter desktop
 
 // derived parameters
 inputFiles = inputDir + "/*.tif"
