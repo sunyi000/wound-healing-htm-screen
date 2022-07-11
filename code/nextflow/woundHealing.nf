@@ -1,15 +1,12 @@
 nextflow.enable.dsl=2
 
-// input parameters
-userDir = '/Users/tischer/Documents' // tischi's mac
-//userDir = '??' // jupyter desktop
-inputDir = userDir + '/daniel-heid-wound-healing/data/input'
-wound_healing_fiji_script = userDir + '/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy'
-fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx --headless --run' // tischi's mac
-// fiji = 'fiji --headless --run' // jupyter desktop
+params.inputDir = '/Users/tischer/Documents/daniel-heid-wound-healing/data/input'
+params.fijiScript = '/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy'
+//fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx --headless --run' // tischi's mac
+params.fiji = 'fiji --headless --run' // jupyter desktop
 
 // derived parameters
-inputFiles = inputDir + "/*.tif"
+inputFiles = params.inputDir + "/*.tif"
 
 process measureHealing {
   input:
@@ -19,7 +16,7 @@ process measureHealing {
   '''
   echo "Processing dataset:" !{key}
   echo "Contained files:" !{samples}
-  !{fiji} !{wound_healing_fiji_script} "inputDir='!{inputDir}',datasetId='!{key}',headless='true'"
+  !{params.fiji} !{params.fijiScript} "inputDir='!{params.inputDir}',datasetId='!{key}',headless='true'"
   '''
 }
 

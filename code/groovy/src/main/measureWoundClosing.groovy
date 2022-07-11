@@ -26,20 +26,17 @@ import inra.ijpb.segment.Threshold
 
 // INPUT UI
 //
-//#@ File (label="Input directory", style="directory") inputDir
-//#@ String (label="Dataset id") datasetId
-//#@ Boolean (label="Run headless", default="false") headless
+#@ File (label="Input directory", style="directory") inputDir
+#@ String (label="Dataset id") datasetId
+#@ Boolean (label="Run headless", default="false") headless
 
-//#@ File (label = "Input directory", style="directory") inputDir
-//#@ Boolean (label = "Show results", default="false") showResults
+// for developing in an IDE
+//def inputDir = new File("/Users/tischer/Desktop/daniel-heid/single-images/")
+//def datasetId = "M1_D5"; // M1_C2 M1_D5
+//def headless = false;
+//new ImageJ().setVisible(true)
 
 // INPUT PARAMETERS
-// for developing in an IDE
-def inputDir = new File("/Users/tischer/Desktop/daniel-heid/single-images/")
-def datasetId = "M1_D5"; // M1_C2 M1_D5
-def headless = false;
-new ImageJ().setVisible(true)
-
 def cellDiameter = 20
 def scratchDiameter = 500
 def binningFactor = 2
