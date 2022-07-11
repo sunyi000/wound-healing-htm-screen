@@ -15,6 +15,7 @@ import ij.gui.Roi
 import ij.measure.Measurements
 import ij.measure.ResultsTable
 import ij.plugin.FolderOpener
+import ij.plugin.ImageCalculator
 import ij.plugin.filter.Analyzer
 import ij.plugin.filter.ThresholdToSelection
 import ij.plugin.frame.RoiManager
@@ -26,15 +27,15 @@ import inra.ijpb.segment.Threshold
 
 // INPUT UI
 //
-#@ File (label="Input directory", style="directory") inputDir
-#@ String (label="Dataset id") datasetId
-#@ Boolean (label="Run headless", default="false") headless
+//#@ File (label="Input directory", style="directory") inputDir
+//#@ String (label="Dataset id") datasetId
+//#@ Boolean (label="Run headless", default="false") headless
 
 // for developing in an IDE
-//def inputDir = new File("/Users/tischer/Desktop/daniel-heid/single-images/")
-//def datasetId = "M1_D5"; // M1_C2 M1_D5
-//def headless = false;
-//new ImageJ().setVisible(true)
+def inputDir = new File("/Users/tischer/Desktop/daniel-heid/single-images/")
+def datasetId = "M1_D5"; // M1_C2 M1_D5
+def headless = false;
+new ImageJ().setVisible(true)
 
 // INPUT PARAMETERS
 def cellDiameter = 20
@@ -64,28 +65,39 @@ println("Creating binary image...")
 IJ.run(imp,"Properties...", "pixel_width=1 pixel_height=1 voxel_depth=1");
 // bin to save compute time
 IJ.run(imp, "Bin...", "x=" + binningFactor + " y=" + binningFactor + " z=1 bin=Average");
-if(!headless) imp.duplicate().show()
+def binnedImp = imp.duplicate() // keep for saving
 // enhance cells
 IJ.run(imp, "32-bit", "");
-IJ.run(imp, "Variance...", "radius=" + cellFilterRadius + " stack");
-IJ.run(imp, "Enhance Contrast", "saturated=0.35");
-IJ.run(imp, "8-bit", ""); // otherwise the thresholding does not seem to work
-if (!headless) imp.duplicate().show()
-// invert (we are interested in the cell free region)
-IJ.run(imp, "Invert", "stack")
-
+// sdev
+def sdevImp = imp.duplicate()
+IJ.run(sdevImp, "Variance...", "radius=" + cellFilterRadius + " stack");
+IJ.run(sdevImp, "Square Root", "stack");
+// mean
+def meanImp = imp.duplicate()
+IJ.run(meanImp, "Mean...", "radius=" + cellFilterRadius + " stack");
+// cov
+def covImp = ImageCalculator.run(sdevImp, meanImp, "Divide create 32-bit stack");
+IJ.run(covImp, "Enhance Contrast", "saturated=0.35");
+IJ.run(covImp, "8-bit", ""); // otherwise the thresholding does not seem to work
+if (!headless) covImp.duplicate().show()
 // create binary image (cell-free regions are foreground)
 //
 IJ.run("Options...", "iterations=1 count=1 black");
 // determine threshold in first frame, because there we are
 // closest to a 50/50 occupancy of the image with signal,
 // which is best for most auto-thresholding algorithms
-imp.setPosition(1)
-def threshold = Auto_Threshold.Huang2( imp.getProcessor().getHistogram() )
-println("Thresholding variance filtered image at " + threshold )
+covImp.setPosition(1)
+def histogram = covImp.getProcessor().getHistogram()
+// use Huang method
+// multiply threshold with a fixed factor (as is done in CellProfiler),
+// based on the observation that the threshold is consistently
+// , in our case, a bit too high, which may be due to
+// the fact that the majority of the image is foreground
+def threshold = Auto_Threshold.Huang(histogram) * 0.8
 // create binary image of whole movie,
 // using the threshold of the first image
-def binaryImp = Threshold.threshold(imp, threshold, Math.pow(2, imp.getBitDepth()))
+// defining the cell free regions as foreground
+def binaryImp = Threshold.threshold(covImp, 0, threshold)
 
 // create scratch ROI
 //
@@ -98,6 +110,9 @@ scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 scratchIp = Reconstruction.fillHoles(scratchIp)
 // smoothen edges of scratch region
 scratchIp = Morphology.opening(scratchIp, SquareStrel.fromRadius((int) scratchFilterRadius))
+// in case the opening helped to cut off some
+// areas outside the scratch we again only keep the largest region
+scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 // convert binary image to ROI, which is handy for measurements
 def scratchImp = new ImagePlus("Binary Scratch", scratchIp)
 IJ.run(scratchImp, "Create Selection", "");
@@ -114,20 +129,25 @@ def rt = multiMeasure(binaryImp, scratchROI)
 // show
 if (!headless) {
     rt.show("Results")
+    binnedImp.show()
+    binnedImp.setRoi(scratchROI, true)
     binaryImp.show()
     binaryImp.setRoi(scratchROI, true)
 }
 
 // save
-// TODO: what to save exactly?
+//
 
 // create output directory
 def outputDir = new File( inputDir.getParent(), "analysis" );
 println("Ensuring existence of output directory: " + outputDir)
 outputDir.mkdir()
+// save table
 rt.save( new File( outputDir, datasetId + ".csv" ).toString() );
-binaryImp.setRoi(scratchROI, false)
-IJ.save(binaryImp, new File( outputDir, datasetId + ".tif" ).toString() );
+
+// save binned image with ROI
+binnedImp.setRoi(scratchROI, false)
+IJ.save(binnedImp, new File( outputDir, datasetId + ".tif" ).toString() );
 
 println("Analysis of "+datasetId+" is done!")
 if ( headless ) System.exit(0)
@@ -170,4 +190,33 @@ private static ResultsTable multiMeasure(ImagePlus imp, Roi[] rois) {
         }
     }
     return rtMulti;
+}
+
+
+// copied from Auto_Threshold
+public static int Percentile(int [] data, double ptile) {
+    // W. Doyle, "Operation useful for similarity-invariant pattern recognition,"
+    // Journal of the Association for Computing Machinery, vol. 9,pp. 259-267, 1962.
+    // ported to ImageJ plugin by G.Landini from Antti Niemisto's Matlab code (GPL)
+    // Original Matlab code Copyright (C) 2004 Antti Niemisto
+    // See http://www.cs.tut.fi/~ant/histthresh/ for an excellent slide presentation
+    // and the original Matlab code.
+
+    int threshold = -1;
+    double [] avec = new double [data.length];
+
+    for (int i=0; i<data.length; i++)
+        avec[i]=0.0;
+
+    double total = Auto_Threshold.partialSum(data, data.length - 1);
+    double temp = 1.0;
+    for (int i=0; i<data.length; i++){
+        avec[i]=Math.abs((Auto_Threshold.partialSum(data, i)/total)- ptile);
+        IJ.log("Ptile["+i+"]:"+ avec[i] + ", temp:"+temp);
+        if (avec[i]<temp) {
+            temp = avec[i];
+            threshold = i;
+        }
+    }
+    return threshold;
 }
