@@ -26,8 +26,8 @@ This project is about quantification of wound healing in microscopy scratch assa
 - go to the nextflow folder:
   - `cd ./code/nextflow`
 - TODO: specify the input data directory
-- run the nextflow script
-  - `rm -rf work; nextflow run woundHealing.nf; cat work/*/*/.command.log; rm -rf .next*; rm -rf work`
+- run the nextflow script (replace the `--inputDir` and `--fijiScript` parameters)
+  - `rm -rf work; nextflow run woundHealing.nf --inputDir "/home/tischer/daniel-heid-wound-healing/data/input" --fijiScript "/home/tischer/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy"; cat work/*/*/.command.log; rm -rf .next*; rm -rf work`
 
 
 ## Tests
