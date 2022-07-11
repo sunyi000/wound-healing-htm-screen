@@ -51,6 +51,7 @@ def scratchFilterRadius = scratchDiameter/10.0F/binningFactor
 //
 
 // open
+IJ.run("Close All");
 println("Opening " + datasetId + "...")
 def imp = FolderOpener.open(inputDir.toString(), " filter=(.*"+datasetId+".*)")
 if ( imp == null  || imp.getNSlices() == 0 ) {
@@ -63,6 +64,7 @@ println("Creating binary image...")
 IJ.run(imp,"Properties...", "pixel_width=1 pixel_height=1 voxel_depth=1");
 // bin to save compute time
 IJ.run(imp, "Bin...", "x=" + binningFactor + " y=" + binningFactor + " z=1 bin=Average");
+if(!headless) imp.duplicate().show()
 // enhance cells
 IJ.run(imp, "32-bit", "");
 IJ.run(imp, "Variance...", "radius=" + cellFilterRadius + " stack");
