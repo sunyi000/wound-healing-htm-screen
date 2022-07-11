@@ -26,18 +26,19 @@ import inra.ijpb.segment.Threshold
 
 // INPUT UI
 //
-#@ File (label="Input directory", style="directory") inputDir
-#@ String (label="Dataset id") datasetId
-#@ Boolean (label="Run headless", default="false") headless
+//#@ File (label="Input directory", style="directory") inputDir
+//#@ String (label="Dataset id") datasetId
+//#@ Boolean (label="Run headless", default="false") headless
 
 //#@ File (label = "Input directory", style="directory") inputDir
 //#@ Boolean (label = "Show results", default="false") showResults
 
 // INPUT PARAMETERS
 // for developing in an IDE
-//def inputDir = new File("/Users/tischer/Desktop/daniel-heid/single-images/")
-//def regExp = "M1_D5_.*";
-//def showResults = false;
+def inputDir = new File("/Users/tischer/Desktop/daniel-heid/single-images/")
+def datasetId = "M1_D5"; // M1_C2 M1_D5
+def headless = false;
+new ImageJ().setVisible(true)
 
 def cellDiameter = 20
 def scratchDiameter = 500
@@ -45,13 +46,12 @@ def binningFactor = 2
 
 // DERIVED OR FIXED PARAMETERS
 //
-def cellFilterRadius = cellDiameter/2.0F/binningFactor
+def cellFilterRadius = cellDiameter/binningFactor
 def scratchFilterRadius = scratchDiameter/10.0F/binningFactor
 
 
 // CODE
 //
-if (!headless) new ImageJ().setVisible(true)
 
 // open
 println("Opening " + datasetId + "...")
@@ -67,18 +67,26 @@ IJ.run(imp,"Properties...", "pixel_width=1 pixel_height=1 voxel_depth=1");
 // bin to save compute time
 IJ.run(imp, "Bin...", "x=" + binningFactor + " y=" + binningFactor + " z=1 bin=Average");
 // enhance cells
+IJ.run(imp, "32-bit", "");
 IJ.run(imp, "Variance...", "radius=" + cellFilterRadius + " stack");
+IJ.run(imp, "Enhance Contrast", "saturated=0.35");
+IJ.run(imp, "8-bit", ""); // otherwise the thresholding does not seem to work
+if (!headless) imp.duplicate().show()
 // invert (we are interested in the cell free region)
 IJ.run(imp, "Invert", "stack")
+
 // create binary image (cell-free regions are foreground)
+//
 IJ.run("Options...", "iterations=1 count=1 black");
 // determine threshold in first frame, because there we are
 // closest to a 50/50 occupancy of the image with signal,
 // which is best for most auto-thresholding algorithms
 imp.setPosition(1)
-def otsu = Auto_Threshold.Otsu(imp.getProcessor().getHistogram())
-// create binary image (whole movie)
-def binaryImp = Threshold.threshold(imp, otsu, Math.pow(2, imp.getBitDepth()))
+def threshold = Auto_Threshold.Huang2( imp.getProcessor().getHistogram() )
+println("Thresholding variance filtered image at " + threshold )
+// create binary image of whole movie,
+// using the threshold of the first image
+def binaryImp = Threshold.threshold(imp, threshold, Math.pow(2, imp.getBitDepth()))
 
 // create scratch ROI
 //
@@ -100,7 +108,7 @@ def scratchROI = scratchImp.getRoi()
 // `area_fraction` returns the fraction of foreground pixels
 // (cell free area) within the measurement ROI
 println("Performing measurements...")
-IJ.run("Set Measurements...", "area_fraction redirect=None decimal=0");
+IJ.run("Set Measurements...", "area_fraction redirect=None decimal=2");
 // RoiManager does not work headless: https://github.com/imagej/imagej-legacy/issues/153
 def rt = multiMeasure(binaryImp, scratchROI)
 
