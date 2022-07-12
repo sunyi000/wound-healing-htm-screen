@@ -32,8 +32,8 @@ import inra.ijpb.segment.Threshold
 //#@ Boolean (label="Run headless", default="false") headless
 
 // for developing in an IDE
-def inputDir = new File("/Users/tischer/Desktop/daniel-heid/single-images/")
-def datasetId = "M1_D5"; // M1_C2 M1_D5
+def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
+def datasetId = "C4ROI1_Fast"; // C4ROI1_Fast A3ROI2_Slow
 def headless = false;
 new ImageJ().setVisible(true)
 
@@ -54,7 +54,7 @@ def scratchFilterRadius = scratchDiameter/10.0F/binningFactor
 // open
 IJ.run("Close All");
 println("Opening " + datasetId + "...")
-def imp = FolderOpener.open(inputDir.toString(), " filter=(.*"+datasetId+".*)")
+def imp = FolderOpener.open(inputDir.toString(), " file="+datasetId)
 if ( imp == null  || imp.getNSlices() == 0 ) {
     println("Could not find any files matching the pattern!")
     System.exit(1)
