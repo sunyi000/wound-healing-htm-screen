@@ -33,7 +33,7 @@ import inra.ijpb.segment.Threshold
 
 // for developing in an IDE
 def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
-def datasetId = "C4ROI1_Fast"; // C4ROI1_Fast A3ROI2_Slow
+def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
 def headless = false;
 new ImageJ().setVisible(true)
 
@@ -73,15 +73,14 @@ sdevImp.setTitle("sdev")
 IJ.run(sdevImp, "Find Edges", "stack"); // removes larger structures, such as dirt in the background
 IJ.run(sdevImp, "Variance...", "radius=" + cellFilterRadius + " stack");
 IJ.run(sdevImp, "Square Root", "stack");
-if (!headless) sdevImp.duplicate().show()
 // mean
 def meanImp = imp.duplicate()
 IJ.run(meanImp, "Mean...", "radius=" + cellFilterRadius + " stack");
 // cov
 def covImp = ImageCalculator.run(sdevImp, meanImp, "Divide create 32-bit stack");
-covImp.setTitle("cov")
 IJ.run(covImp, "Enhance Contrast", "saturated=0.35");
 IJ.run(covImp, "8-bit", ""); // otherwise the thresholding does not seem to work
+covImp.setTitle("cov")
 if (!headless) covImp.duplicate().show()
 // create binary image (cell-free regions are foreground)
 //
@@ -113,7 +112,7 @@ scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 scratchIp = Reconstruction.fillHoles(scratchIp)
 // disconnect from cell free regions outside scratch
 scratchIp = Morphology.opening(scratchIp, SquareStrel.fromRadius((int) scratchFilterRadius))
-// in case the opening helped to cut off some
+// in case the morphological opening cut off some cell free
 // areas outside the scratch we again only keep the largest region
 scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 // smoothen scratch edges
