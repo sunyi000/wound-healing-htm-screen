@@ -45,8 +45,7 @@ def binningFactor = 2
 // DERIVED OR FIXED PARAMETERS
 //
 def cellFilterRadius = cellDiameter/binningFactor
-def scratchFilterRadius = scratchDiameter/10.0F/binningFactor
-
+def scratchFilterRadius = scratchDiameter/5/binningFactor
 
 // CODE
 //
@@ -70,13 +69,17 @@ def binnedImp = imp.duplicate() // keep for saving
 IJ.run(imp, "32-bit", "");
 // sdev
 def sdevImp = imp.duplicate()
+sdevImp.setTitle("sdev")
+IJ.run(sdevImp, "Find Edges", "stack"); // removes larger structures, such as dirt in the background
 IJ.run(sdevImp, "Variance...", "radius=" + cellFilterRadius + " stack");
 IJ.run(sdevImp, "Square Root", "stack");
+if (!headless) sdevImp.duplicate().show()
 // mean
 def meanImp = imp.duplicate()
 IJ.run(meanImp, "Mean...", "radius=" + cellFilterRadius + " stack");
 // cov
 def covImp = ImageCalculator.run(sdevImp, meanImp, "Divide create 32-bit stack");
+covImp.setTitle("cov")
 IJ.run(covImp, "Enhance Contrast", "saturated=0.35");
 IJ.run(covImp, "8-bit", ""); // otherwise the thresholding does not seem to work
 if (!headless) covImp.duplicate().show()
@@ -108,11 +111,16 @@ def scratchIp = binaryImp.crop("whole-slice").getProcessor();
 scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 // remove cells inside scratch region
 scratchIp = Reconstruction.fillHoles(scratchIp)
-// smoothen edges of scratch region
+// disconnect from cell free regions outside scratch
 scratchIp = Morphology.opening(scratchIp, SquareStrel.fromRadius((int) scratchFilterRadius))
 // in case the opening helped to cut off some
 // areas outside the scratch we again only keep the largest region
 scratchIp = BinaryImages.keepLargestRegion(scratchIp)
+// smoothen scratch edges
+scratchIp = Morphology.closing(scratchIp, SquareStrel.fromRadius((int) scratchFilterRadius))
+// dilate to accommodate spurious cells at scratch borders
+scratchIp = Morphology.dilation(scratchIp, SquareStrel.fromRadius( 2 * (int)cellFilterRadius))
+
 // convert binary image to ROI, which is handy for measurements
 def scratchImp = new ImagePlus("Binary Scratch", scratchIp)
 IJ.run(scratchImp, "Create Selection", "");
