@@ -27,15 +27,15 @@ import inra.ijpb.segment.Threshold
 
 // INPUT UI
 //
-//#@ File (label="Input directory", style="directory") inputDir
-//#@ String (label="Dataset id") datasetId
-//#@ Boolean (label="Run headless", default="false") headless
+#@ File (label="Input directory", style="directory") inputDir
+#@ String (label="Dataset id") datasetId
+#@ Boolean (label="Run headless", default="false") headless
 
 // for developing in an IDE
-def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
-def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
-def headless = false;
-new ImageJ().setVisible(true)
+//def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
+//def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
+//def headless = false;
+//new ImageJ().setVisible(true)
 
 // INPUT PARAMETERS
 def cellDiameter = 20
