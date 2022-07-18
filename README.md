@@ -12,6 +12,11 @@ This project is about quantification of wound healing in microscopy scratch assa
 ## Installation instructions
 
 
+### Running headless on a single data set
+
+#### On Tischi's Mac
+
+`"/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx" --ij2 --headless --run "/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy" 'inputDir="/Users/tischer/Documents/daniel-heid-wound-healing/data/input",datasetId="A3ROI2_Slow",headless="true"'`
 
 ### Batch analysis with nextflow
 
@@ -25,10 +30,17 @@ This project is about quantification of wound healing in microscopy scratch assa
   - `git pull`
 - go to the nextflow folder:
   - `cd ./code/nextflow`
-- run the nextflow script (replace the `--inputDir` and `--fijiScript` parameters)
-  - `rm -rf work; nextflow run woundHealing.nf --inputDir "/home/tischer/daniel-heid-wound-healing/data/input" --fijiScript "/home/tischer/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy"; cat work/*/*/.command.log; rm -rf .next*; rm -rf work`
-  - If you need to specify the Fiji executable please use:
-    - `rm -rf work; nextflow run woundHealing.nf --inputDir "/home/tischer/daniel-heid-wound-healing/data/input" --fijiScript "/home/tischer/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy" --fiji "PLEASE_ADAPT/Fiji.app/ImageJ-linux64"; cat work/*/*/.command.log; rm -rf .next*; rm -rf work`
+
+#### General
+
+Inside the repositories nextflow folder please execute below command.
+You need to replace all parameters starting with a `$` sign be actual paths!
+
+ `rm -rf work; nextflow run woundHealing.nf --inputDir "$INPUT_DATA_DIR" --fijiScript "$FIJI_SCRIPT_DIR/measureWoundClosing.groovy" --fiji "$FIJI"; cat work/*/*/.command.log; rm -rf .next*; rm -rf work`
+ 
+#### On Tischi's Mac
+
+`rm -rf work; nextflow run woundHealing.nf --inputDir "/Users/tischer/Documents/daniel-heid-wound-healing/data/input" --fijiScript "/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy" --fiji "/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx"; cat work/*/*/.command.log; rm -rf .next*; rm -rf work`
     - please change PLEASE_ADAPT to the respective directory on your computer. 
 
 ## Tests

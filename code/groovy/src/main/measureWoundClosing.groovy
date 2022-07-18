@@ -34,7 +34,7 @@ import inra.ijpb.segment.Threshold
 // for developing in an IDE
 //def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
 //def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
-//def headless = false;
+//def headless = true;
 //new ImageJ().setVisible(true)
 
 // INPUT PARAMETERS
@@ -52,8 +52,10 @@ def scratchFilterRadius = scratchDiameter/5/binningFactor
 
 // open
 IJ.run("Close All");
-println("Opening " + datasetId + "...")
-def imp = FolderOpener.open(inputDir.toString(), " file="+datasetId)
+println("Opening: " + datasetId)
+def imp = FolderOpener.open(inputDir.toString(), " filter=(.*"+datasetId+".*)")
+println("Number of slices: " + imp.getNSlices())
+
 if ( imp == null  || imp.getNSlices() == 0 ) {
     println("Could not find any files matching the pattern!")
     System.exit(1)
