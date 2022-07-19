@@ -87,7 +87,7 @@ def covImp = ImageCalculator.run(sdevImp, meanImp, "Divide create 32-bit stack")
 IJ.run(covImp, "Enhance Contrast", "saturated=0.35");
 IJ.run(covImp, "8-bit", ""); // otherwise the thresholding does not seem to work
 covImp.setTitle( datasetId + " cov" )
-if (!headless) { covImp.duplicate().show();
+if (!headless) covImp.duplicate().show();
 // create binary image (cell-free regions are foreground)
 //
 IJ.run("Options...", "iterations=1 count=1 black");
