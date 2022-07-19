@@ -17,28 +17,28 @@ import ij.measure.ResultsTable
 import ij.plugin.FolderOpener
 import ij.plugin.ImageCalculator
 import ij.plugin.filter.Analyzer
-import ij.plugin.filter.ThresholdToSelection
-import ij.plugin.frame.RoiManager
 import inra.ijpb.binary.BinaryImages
 import inra.ijpb.morphology.Morphology
 import inra.ijpb.morphology.Reconstruction
 import inra.ijpb.morphology.strel.SquareStrel
 import inra.ijpb.segment.Threshold
+import org.apache.commons.math3.fitting.PolynomialCurveFitter
+import org.apache.commons.math3.fitting.WeightedObservedPoints
 
 // INPUT UI
 //
-#@ File (label="Input directory", style="directory") inputDir
-#@ String (label="Dataset id") datasetId
-#@ Boolean (label="Run headless", default="false") headless
-#@ Boolean (label="Save results", default="true") saveResults
+//#@ File (label="Input directory", style="directory") inputDir
+//#@ String (label="Dataset id") datasetId
+//#@ Boolean (label="Run headless", default="false") headless
+//#@ Boolean (label="Save results", default="true") saveResults
 
 
 // for developing in an IDE
-//def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
-//def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
-//def headless = true;
-//def saveResults = false;
-//new ImageJ().setVisible(true)
+def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
+def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
+def headless = false;
+def saveResults = false;
+new ImageJ().setVisible(true)
 
 // INPUT PARAMETERS
 def cellDiameter = 20
@@ -134,6 +134,41 @@ scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 scratchIp = Morphology.closing(scratchIp, SquareStrel.fromRadius((int)(scratchFilterRadius/5)))
 // dilate to accommodate spurious cells at scratch borders
 //scratchIp = Morphology.dilation(scratchIp, SquareStrel.fromRadius(2*(int)cellFilterRadius))
+
+def height = scratchIp.getHeight()
+def width = scratchIp.getWidth()
+int numPixels
+double avgWidth = 0
+double avgX = 0;
+def points = new WeightedObservedPoints();
+for (y in 0..<height) {
+    avgX = 0
+    numPixels = 0
+    for (x in 0..<width) {
+        if ( scratchIp.get(x, y) > 0 )
+        {
+            numPixels++
+            avgX += x
+        }
+    }
+    if ( numPixels > 0 ) {
+        avgX /= numPixels
+        points.add(y, avgX)
+        avgWidth += numPixels
+    }
+}
+avgWidth /= height;
+def fitter = PolynomialCurveFitter.create(1);
+def fit = fitter.fit(points.toList());
+
+def x0 = fit[0]
+def m = fit[1]
+
+def halfWidth = avgWidth / 2
+println( "top left: " + (x0-halfWidth) )
+println( "top right: " + (x0+halfWidth) )
+println( "bottom left: " + ( (x0+m*height) - halfWidth) )
+println( "bottom right: " + ( (x0+m*height) + halfWidth) )
 
 // convert binary image to ROI, which is handy for measurements
 def scratchImp = new ImagePlus("Finale scratch", scratchIp)
