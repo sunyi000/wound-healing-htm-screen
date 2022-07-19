@@ -11,19 +11,25 @@ import fiji.threshold.Auto_Threshold
 import ij.IJ
 import ij.ImageJ
 import ij.ImagePlus
+import ij.gui.PolygonRoi
 import ij.gui.Roi
 import ij.measure.Measurements
 import ij.measure.ResultsTable
 import ij.plugin.FolderOpener
 import ij.plugin.ImageCalculator
 import ij.plugin.filter.Analyzer
+import ij.process.ImageProcessor
 import inra.ijpb.binary.BinaryImages
 import inra.ijpb.morphology.Morphology
 import inra.ijpb.morphology.Reconstruction
 import inra.ijpb.morphology.strel.SquareStrel
 import inra.ijpb.segment.Threshold
+import jnr.ffi.annotations.In
+import org.apache.commons.math.stat.descriptive.rank.Percentile
 import org.apache.commons.math3.fitting.PolynomialCurveFitter
 import org.apache.commons.math3.fitting.WeightedObservedPoints
+
+import java.util.stream.Collectors
 
 // INPUT UI
 //
@@ -122,59 +128,13 @@ def scratchIp = binaryImp.crop("whole-slice").getProcessor().duplicate();
 scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 // remove cells inside scratch region
 scratchIp = Reconstruction.fillHoles(scratchIp)
-// increase cell free region (accomodating the cell filter radius)
+// increase cell free region (accommodating the cell filter radius)
 scratchIp = Morphology.dilation(scratchIp, SquareStrel.fromRadius((int)cellFilterRadius))
-if(!headless) new ImagePlus("Scratch", scratchIp.duplicate()).show()
-// disconnect from cell free regions outside scratch
-scratchIp = Morphology.opening(scratchIp, SquareStrel.fromRadius((int)(scratchFilterRadius/20)))
-// in case the morphological opening cut off some cell free
-// areas outside the scratch we again only keep the largest region
-scratchIp = BinaryImages.keepLargestRegion(scratchIp)
-// smoothen scratch edges
-scratchIp = Morphology.closing(scratchIp, SquareStrel.fromRadius((int)(scratchFilterRadius/5)))
-// dilate to accommodate spurious cells at scratch borders
-//scratchIp = Morphology.dilation(scratchIp, SquareStrel.fromRadius(2*(int)cellFilterRadius))
-
-def height = scratchIp.getHeight()
-def width = scratchIp.getWidth()
-int numPixels
-double avgWidth = 0
-double avgX = 0;
-def points = new WeightedObservedPoints();
-for (y in 0..<height) {
-    avgX = 0
-    numPixels = 0
-    for (x in 0..<width) {
-        if ( scratchIp.get(x, y) > 0 )
-        {
-            numPixels++
-            avgX += x
-        }
-    }
-    if ( numPixels > 0 ) {
-        avgX /= numPixels
-        points.add(y, avgX)
-        avgWidth += numPixels
-    }
-}
-avgWidth /= height;
-def fitter = PolynomialCurveFitter.create(1);
-def fit = fitter.fit(points.toList());
-
-def x0 = fit[0]
-def m = fit[1]
-
-def halfWidth = avgWidth / 2
-println( "top left: " + (x0-halfWidth) )
-println( "top right: " + (x0+halfWidth) )
-println( "bottom left: " + ( (x0+m*height) - halfWidth) )
-println( "bottom right: " + ( (x0+m*height) + halfWidth) )
-
-// convert binary image to ROI, which is handy for measurements
-def scratchImp = new ImagePlus("Finale scratch", scratchIp)
+// fit the roi region
+PolygonRoi scratchROI = createScratchRoi(scratchIp)
+def scratchImp = new ImagePlus("Scratch", scratchIp)
+scratchImp.setRoi(scratchROI, true)
 if(!headless) scratchImp.show()
-IJ.run(scratchImp, "Create Selection", "");
-def scratchROI = scratchImp.getRoi()
 
 // measure occupancy of scratch ROI
 // `area_fraction` returns the fraction of foreground pixels
@@ -214,6 +174,54 @@ if ( saveResults ) {
 println("Analysis of "+datasetId+" is done!")
 if ( headless ) System.exit(0)
 
+// Functions
+//
+
+
+private PolygonRoi createScratchRoi(ImageProcessor scratchIp) {
+    def ny = scratchIp.getHeight()
+    def nx = scratchIp.getWidth()
+    def widths = new ArrayList<Double>()
+    def points = new WeightedObservedPoints();
+    for (y in 0..<ny) {
+        double avgX = 0
+        double width = 0
+        for (x in 0..<nx) {
+            if (scratchIp.get(x, y) > 0) {
+                width = width + 1.0
+                avgX += x
+            }
+        }
+        if (width > 0) {
+            avgX /= width
+            points.add(y, avgX)
+            widths.add((double) width)
+        }
+    }
+
+    def doubles = widths.stream().mapToDouble(x -> (double) x).toArray()
+    def scratchWidth = new Percentile().evaluate(doubles, 75)
+    def fitter = PolynomialCurveFitter.create(1);
+    def fit = fitter.fit(points.toList());
+    def x0 = fit[0]
+    def m = fit[1]
+
+    def scratchHalfWidth = scratchWidth / 2
+    def polyRoiX = new int[4]
+    def polyRoiY = new int[4]
+    polyRoiX[0] = (x0 - scratchHalfWidth)
+    polyRoiX[1] = (x0 + scratchHalfWidth)
+    polyRoiX[2] = (x0 + m * ny) + scratchHalfWidth
+    polyRoiX[3] = (x0 + m * ny) - scratchHalfWidth
+    polyRoiY[0] = 0
+    polyRoiY[1] = 0
+    polyRoiY[2] = ny - 1
+    polyRoiY[3] = ny - 1
+    def roi = new PolygonRoi(polyRoiX, polyRoiY, 4, Roi.POLYGON);
+    return roi
+}
+
+
 // copied from RoiManager
 // https://forum.image.sc/t/make-multimeasure-public-in-roimanager/69273
 private static ResultsTable multiMeasure(ImagePlus imp, Roi[] rois) {
@@ -252,33 +260,4 @@ private static ResultsTable multiMeasure(ImagePlus imp, Roi[] rois) {
         }
     }
     return rtMulti;
-}
-
-
-// copied from Auto_Threshold
-public static int Percentile(int [] data, double ptile) {
-    // W. Doyle, "Operation useful for similarity-invariant pattern recognition,"
-    // Journal of the Association for Computing Machinery, vol. 9,pp. 259-267, 1962.
-    // ported to ImageJ plugin by G.Landini from Antti Niemisto's Matlab code (GPL)
-    // Original Matlab code Copyright (C) 2004 Antti Niemisto
-    // See http://www.cs.tut.fi/~ant/histthresh/ for an excellent slide presentation
-    // and the original Matlab code.
-
-    int threshold = -1;
-    double [] avec = new double [data.length];
-
-    for (int i=0; i<data.length; i++)
-        avec[i]=0.0;
-
-    double total = Auto_Threshold.partialSum(data, data.length - 1);
-    double temp = 1.0;
-    for (int i=0; i<data.length; i++){
-        avec[i]=Math.abs((Auto_Threshold.partialSum(data, i)/total)- ptile);
-        IJ.log("Ptile["+i+"]:"+ avec[i] + ", temp:"+temp);
-        if (avec[i]<temp) {
-            temp = avec[i];
-            threshold = i;
-        }
-    }
-    return threshold;
 }
