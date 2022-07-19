@@ -48,7 +48,10 @@ def binningFactor = 2
 // DERIVED OR FIXED PARAMETERS
 //
 def cellFilterRadius = cellDiameter/binningFactor
-def scratchFilterRadius = scratchDiameter/5/binningFactor
+def scratchFilterRadius = scratchDiameter/binningFactor
+
+println("Cell filter radius: " + cellFilterRadius)
+println("Scratch filter radius: " + scratchFilterRadius)
 
 // CODE
 //
@@ -102,32 +105,39 @@ def histogram = covImp.getProcessor().getHistogram()
 // , in our case, a bit too high, which may be due to
 // the fact that the majority of the image is foreground
 def threshold = Auto_Threshold.Huang(histogram) * 0.8
+println("Threshold: " + threshold)
 // create binary image of whole movie,
 // using the threshold of the first image
 // defining the cell free regions as foreground
 def binaryImp = Threshold.threshold(covImp, 0, threshold)
+binaryImp.setTitle(datasetId + " binary")
+if(!headless) binaryImp.duplicate().show()
 
 // create scratch ROI
 //
 println("Creating scratch ROI...")
 binaryImp.setPosition(1) // scratch is most visible in first frame
-def scratchIp = binaryImp.crop("whole-slice").getProcessor();
+def scratchIp = binaryImp.crop("whole-slice").getProcessor().duplicate();
 // identify largest cell free region as scratch region
 scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 // remove cells inside scratch region
 scratchIp = Reconstruction.fillHoles(scratchIp)
+// increase cell free region (accomodating the cell filter radius)
+scratchIp = Morphology.dilation(scratchIp, SquareStrel.fromRadius((int)cellFilterRadius))
+if(!headless) new ImagePlus("Scratch", scratchIp.duplicate()).show()
 // disconnect from cell free regions outside scratch
-scratchIp = Morphology.opening(scratchIp, SquareStrel.fromRadius((int) scratchFilterRadius))
+scratchIp = Morphology.opening(scratchIp, SquareStrel.fromRadius((int)(scratchFilterRadius/20)))
 // in case the morphological opening cut off some cell free
 // areas outside the scratch we again only keep the largest region
 scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 // smoothen scratch edges
-scratchIp = Morphology.closing(scratchIp, SquareStrel.fromRadius((int) scratchFilterRadius))
+scratchIp = Morphology.closing(scratchIp, SquareStrel.fromRadius((int)(scratchFilterRadius/5)))
 // dilate to accommodate spurious cells at scratch borders
-scratchIp = Morphology.dilation(scratchIp, SquareStrel.fromRadius( 2 * (int)cellFilterRadius))
+//scratchIp = Morphology.dilation(scratchIp, SquareStrel.fromRadius(2*(int)cellFilterRadius))
 
 // convert binary image to ROI, which is handy for measurements
-def scratchImp = new ImagePlus("Binary Scratch", scratchIp)
+def scratchImp = new ImagePlus("Finale scratch", scratchIp)
+if(!headless) scratchImp.show()
 IJ.run(scratchImp, "Create Selection", "");
 def scratchROI = scratchImp.getRoi()
 
@@ -143,10 +153,11 @@ def rt = multiMeasure(binaryImp, scratchROI)
 if (!headless) {
     rt.show("Results")
     binnedImp.show()
-    binnedImp.setTitle( datasetId + " binned" )
+    binnedImp.setTitle(datasetId + " binned")
     binnedImp.setRoi(scratchROI, true)
+    binaryImp.setPosition(1)
     binaryImp.show()
-    binaryImp.setTitle( datasetId + " binary" )
+    binaryImp.setTitle(datasetId + " binary")
     binaryImp.setRoi(scratchROI, true)
 }
 
