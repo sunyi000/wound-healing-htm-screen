@@ -19,7 +19,7 @@ process measureHealing {
   '''
   echo "Processing dataset:" !{key}
   echo "Contained files:" !{samples}
-  "!{params.fiji}" --ij2 --headless --run "!{params.fijiScript}" 'inputDir="!{params.inputDir}",datasetId="!{key}",headless="true"'
+  "!{params.fiji}" --ij2 --headless --run "!{params.fijiScript}" 'inputDir="!{params.inputDir}",datasetId="!{key}",headless="true",saveResults="true"'
   '''
 }
 
