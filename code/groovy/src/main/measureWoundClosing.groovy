@@ -30,11 +30,14 @@ import inra.ijpb.segment.Threshold
 #@ File (label="Input directory", style="directory") inputDir
 #@ String (label="Dataset id") datasetId
 #@ Boolean (label="Run headless", default="false") headless
+#@ Boolean (label="Run headless", default="true") saveResults
+
 
 // for developing in an IDE
 //def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
 //def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
 //def headless = true;
+//def saveResults = false;
 //new ImageJ().setVisible(true)
 
 // INPUT PARAMETERS
@@ -146,17 +149,18 @@ if (!headless) {
 
 // save
 //
+if ( saveResults ) {
+    // create output directory
+    def outputDir = new File(inputDir.getParent(), "analysis");
+    println("Ensuring existence of output directory: " + outputDir)
+    outputDir.mkdir()
+    // save table
+    rt.save(new File(outputDir, datasetId + ".csv").toString());
 
-// create output directory
-def outputDir = new File( inputDir.getParent(), "analysis" );
-println("Ensuring existence of output directory: " + outputDir)
-outputDir.mkdir()
-// save table
-rt.save( new File( outputDir, datasetId + ".csv" ).toString() );
-
-// save binned image with ROI
-binnedImp.setRoi(scratchROI, false)
-IJ.save(binnedImp, new File( outputDir, datasetId + ".tif" ).toString() );
+    // save binned image with ROI
+    binnedImp.setRoi(scratchROI, false)
+    IJ.save(binnedImp, new File(outputDir, datasetId + ".tif").toString());
+}
 
 println("Analysis of "+datasetId+" is done!")
 if ( headless ) System.exit(0)
