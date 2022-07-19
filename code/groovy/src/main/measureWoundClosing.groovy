@@ -30,7 +30,7 @@ import inra.ijpb.segment.Threshold
 #@ File (label="Input directory", style="directory") inputDir
 #@ String (label="Dataset id") datasetId
 #@ Boolean (label="Run headless", default="false") headless
-#@ Boolean (label="Run headless", default="true") saveResults
+#@ Boolean (label="Save results", default="true") saveResults
 
 
 // for developing in an IDE
@@ -74,19 +74,20 @@ def binnedImp = imp.duplicate() // keep for saving
 IJ.run(imp, "32-bit", "");
 // sdev
 def sdevImp = imp.duplicate()
-sdevImp.setTitle("sdev")
+sdevImp.setTitle( datasetId + " sdev" )
 IJ.run(sdevImp, "Find Edges", "stack"); // removes larger structures, such as dirt in the background
 IJ.run(sdevImp, "Variance...", "radius=" + cellFilterRadius + " stack");
 IJ.run(sdevImp, "Square Root", "stack");
 // mean
 def meanImp = imp.duplicate()
+meanImp.setTitle( datasetId + " mean")
 IJ.run(meanImp, "Mean...", "radius=" + cellFilterRadius + " stack");
 // cov
 def covImp = ImageCalculator.run(sdevImp, meanImp, "Divide create 32-bit stack");
 IJ.run(covImp, "Enhance Contrast", "saturated=0.35");
 IJ.run(covImp, "8-bit", ""); // otherwise the thresholding does not seem to work
-covImp.setTitle("cov")
-if (!headless) covImp.duplicate().show()
+covImp.setTitle( datasetId + " cov" )
+if (!headless) { covImp.duplicate().show();
 // create binary image (cell-free regions are foreground)
 //
 IJ.run("Options...", "iterations=1 count=1 black");
@@ -142,8 +143,10 @@ def rt = multiMeasure(binaryImp, scratchROI)
 if (!headless) {
     rt.show("Results")
     binnedImp.show()
+    binnedImp.setTitle( datasetId + " binned" )
     binnedImp.setRoi(scratchROI, true)
     binaryImp.show()
+    binaryImp.setTitle( datasetId + " binary" )
     binaryImp.setRoi(scratchROI, true)
 }
 
