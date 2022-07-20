@@ -40,7 +40,7 @@ You need to replace all parameters starting with a `$` sign be actual paths!
  
 #### On Tischi's Mac
 
-`rm -rf work; nextflow run woundHealing.nf --inputDir "/Users/tischer/Documents/daniel-heid-wound-healing/data/input" --fijiScript "/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy" --fiji "/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx"; cat work/*/*/.command.log; cat .nextflow.log; rm -rf .next*; rm -rf work`
+`rm -rf work; nextflow run woundHealing.nf --inputDir "/Users/tischer/Documents/daniel-heid-wound-healing/data/input" --fijiScript "/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy" --fiji "/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx" --outDirName="analysis"; cat work/*/*/.command.log; cat .nextflow.log; rm -rf .next*; rm -rf work`
     - please change PLEASE_ADAPT to the respective directory on your computer. 
 
 ## Tests
