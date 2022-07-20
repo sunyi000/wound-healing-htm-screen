@@ -131,7 +131,9 @@ scratchIp = Morphology.opening(scratchIp, SquareStrel.fromRadius((int)(scratchFi
 // areas outside the scratch we again only keep the largest region
 scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 // smoothen scratch edges
-scratchIp = Morphology.closing(scratchIp, SquareStrel.fromRadius((int)(scratchFilterRadius/5)))
+scratchIp = Morphology.closing(scratchIp, SquareStrel.fromRadius((int)(scratchFilterRadius/2)))
+//scratchIp = Morphology.opening(scratchIp, SquareStrel.fromRadius((int)(scratchFilterRadius/2)))
+
 // dilate to accommodate spurious cells at scratch borders
 //scratchIp = Morphology.dilation(scratchIp, SquareStrel.fromRadius(2*(int)cellFilterRadius))
 
