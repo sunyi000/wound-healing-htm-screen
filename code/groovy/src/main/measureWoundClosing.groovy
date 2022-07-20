@@ -132,7 +132,7 @@ scratchIp = Reconstruction.fillHoles(scratchIp)
 // increase cell free region (accommodating the cell filter radius)
 scratchIp = Morphology.dilation(scratchIp, SquareStrel.fromRadius((int)cellFilterRadius))
 // fit the roi region
-PolygonRoi scratchROI = createScratchRoi(scratchIp)
+PolygonRoi scratchROI = createScratchRoi(scratchIp, cellDiameter)
 def scratchImp = new ImagePlus("Scratch", scratchIp)
 scratchImp.setRoi(scratchROI, true)
 if(!headless) scratchImp.show()
@@ -179,7 +179,7 @@ if ( headless ) System.exit(0)
 //
 
 
-private PolygonRoi createScratchRoi(ImageProcessor scratchIp) {
+private PolygonRoi createScratchRoi(ImageProcessor scratchIp, int cellDiameter) {
     def ny = scratchIp.getHeight()
     def nx = scratchIp.getWidth()
     def widths = new ArrayList<Double>()
@@ -207,7 +207,9 @@ private PolygonRoi createScratchRoi(ImageProcessor scratchIp) {
     def x0 = fit[0]
     def m = fit[1]
 
-    def scratchHalfWidth = scratchWidth / 2
+    def scratchHalfWidth = (scratchWidth/2)
+    // make it a little bigger: https://git.embl.de/grp-cba/daniel-heid-wound-healing/-/issues/25
+    scratchHalfWidth += cellDiameter
     def polyRoiX = new int[4]
     def polyRoiY = new int[4]
     polyRoiX[0] = (x0 - scratchHalfWidth)
