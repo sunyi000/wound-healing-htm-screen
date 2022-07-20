@@ -33,18 +33,19 @@ import java.util.stream.Collectors
 
 // INPUT UI
 //
-//#@ File (label="Input directory", style="directory") inputDir
-//#@ String (label="Dataset id") datasetId
-//#@ Boolean (label="Run headless", default="false") headless
-//#@ Boolean (label="Save results", default="true") saveResults
-
+#@ File (label="Input directory", style="directory") inputDir
+#@ String (label="Dataset id") datasetId
+#@ Boolean (label="Run headless", default="false") headless
+#@ Boolean (label="Save results", default="true") saveResults
+#@ String (label="Output directory name", default="analysis") outDirName
 
 // for developing in an IDE
-def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
-def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
-def headless = false;
-def saveResults = false;
-new ImageJ().setVisible(true)
+//def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
+//def datasetId = "A3ROI2_Slow" // C4ROI1_Fast A3ROI2_Slow
+//def headless = false
+//def saveResults = false
+//def outDirName = "analysis"
+//new ImageJ().setVisible(true)
 
 // INPUT PARAMETERS
 def cellDiameter = 20
@@ -160,7 +161,7 @@ if (!headless) {
 //
 if ( saveResults ) {
     // create output directory
-    def outputDir = new File(inputDir.getParent(), "analysis");
+    def outputDir = new File(inputDir.getParent(), outDirName);
     println("Ensuring existence of output directory: " + outputDir)
     outputDir.mkdir()
     // save table

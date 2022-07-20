@@ -16,7 +16,7 @@ This project is about quantification of wound healing in microscopy scratch assa
 
 #### On Tischi's Mac
 
-`"/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx" --ij2 --headless --run "/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy" 'inputDir="/Users/tischer/Documents/daniel-heid-wound-healing/data/input",datasetId="A3ROI2_Slow",headless="true"'`
+`"/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx" --ij2 --headless --run "/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy" 'inputDir="/Users/tischer/Documents/daniel-heid-wound-healing/data/input",datasetId="A3ROI2_Slow",headless="true",outDirName="analysis"'`
 
 ### Batch analysis with nextflow
 
