@@ -31,17 +31,21 @@ This project is about quantification of wound healing in microscopy scratch assa
 - go to the nextflow folder:
   - `cd ./code/nextflow`
 
-#### General
+#### General batch analysis
 
 Inside the repositories nextflow folder please execute below command.
 You need to replace all parameters starting with a `$` sign be actual paths!
 
  `rm -rf work; nextflow run woundHealing.nf --inputDir "$INPUT_DATA_DIR" --fijiScript "$FIJI_SCRIPT_DIR/measureWoundClosing.groovy" --fiji "$FIJI"; cat work/*/*/.command.log; cat .nextflow.log; rm -rf .next*; rm -rf work`
  
-#### On Tischi's Mac
+#### Batch analysis on Tischi's Mac
 
 `rm -rf work; nextflow run woundHealing.nf --inputDir "/Users/tischer/Documents/daniel-heid-wound-healing/data/input" --fijiScript "/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy" --fiji "/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx"; cat work/*/*/.command.log; cat .nextflow.log; rm -rf .next*; rm -rf work`
-    - please change PLEASE_ADAPT to the respective directory on your computer. 
+
+#### Batch analysis on Jupyter Desktop (tischi)
+
+`rm -rf work; nextflow run woundHealing.nf --inputDir "/home/tischer/daniel-heid-wound-healing/data/input" --fijiScript "/home/tischer/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy" --fiji fiji;cat work/*/*/.command.log; cat .nextflow.log; rm -rf .next*; rm -rf work`
+
 
 ## Tests
 

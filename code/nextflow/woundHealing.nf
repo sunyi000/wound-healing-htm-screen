@@ -7,6 +7,7 @@ params.inputDir = '/Users/tischer/Documents/daniel-heid-wound-healing/data/input
 params.fijiScript = '/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy'
 //params.fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx' // tischi's mac
 params.fiji = 'fiji' // jupyter desktop
+params.threshold = 25
 
 // derived parameters
 inputFiles = params.inputDir + "/*.tif"
@@ -19,7 +20,7 @@ process measureHealing {
   '''
   echo "Processing dataset:" !{key}
   echo "Contained files:" !{samples}
-  "!{params.fiji}" --ij2 --headless --run "!{params.fijiScript}" 'inputDir="!{params.inputDir}",datasetId="!{key}",headless="true",saveResults="true"'
+  "!{params.fiji}" --ij2 --headless --run "!{params.fijiScript}" 'inputDir="!{params.inputDir}",datasetId="!{key}",threshold="!{params.threshold}",headless="true",saveResults="true"'
   '''
 }
 
