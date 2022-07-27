@@ -112,10 +112,13 @@ println("Threshold: " + threshold)
 // using the threshold of the first image
 // defining the cell free regions as foreground
 def binaryImp = Threshold.threshold(covImp, 0, threshold)
+// dilate the cell free regions, because due to the cell filter radius
+// the cells are over estimated (blurred into cell free regions) in size
+binaryImp = new ImagePlus("binary", Morphology.dilation(binaryImp.getStack(), SquareStrel.fromRadius((int)cellFilterRadius)))
 binaryImp.setTitle(datasetId + " binary")
 if(!headless) binaryImp.duplicate().show()
 
-// create scratch ROI
+// create scratch ROIs
 //
 println("Creating scratch ROI...")
 binaryImp.setPosition(1) // scratch is most visible in first frame
@@ -124,8 +127,6 @@ def scratchIp = binaryImp.crop("whole-slice").getProcessor().duplicate();
 scratchIp = BinaryImages.keepLargestRegion(scratchIp)
 // remove cells inside scratch region
 scratchIp = Reconstruction.fillHoles(scratchIp)
-// increase cell free region (accomodating the cell filter radius)
-scratchIp = Morphology.dilation(scratchIp, SquareStrel.fromRadius((int)cellFilterRadius))
 if(!headless) new ImagePlus("Scratch", scratchIp.duplicate()).show()
 // disconnect from cell free regions outside scratch
 scratchIp = Morphology.opening(scratchIp, SquareStrel.fromRadius((int)(scratchFilterRadius/20)))
