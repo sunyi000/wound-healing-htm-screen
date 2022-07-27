@@ -29,6 +29,7 @@ import inra.ijpb.segment.Threshold
 //
 #@ File (label="Input directory", style="directory") inputDir
 #@ String (label="Dataset id") datasetId
+#@ Double (label="CoV threshold (-1: auto)", default="-1") threshold
 #@ Boolean (label="Run headless", default="false") headless
 #@ Boolean (label="Save results", default="true") saveResults
 
@@ -40,12 +41,12 @@ import inra.ijpb.segment.Threshold
 //def saveResults = false;
 //new ImageJ().setVisible(true)
 
-// INPUT PARAMETERS
+// FIXED PARAMETERS
 def cellDiameter = 20
 def scratchDiameter = 500
 def binningFactor = 2
 
-// DERIVED OR FIXED PARAMETERS
+// DERIVED PARAMETERS
 //
 def cellFilterRadius = cellDiameter/binningFactor
 def scratchFilterRadius = scratchDiameter/binningFactor
@@ -99,12 +100,13 @@ IJ.run("Options...", "iterations=1 count=1 black");
 // which is best for most auto-thresholding algorithms
 covImp.setPosition(1)
 def histogram = covImp.getProcessor().getHistogram()
-// use Huang method
-// multiply threshold with a fixed factor (as is done in CellProfiler),
+// For auto thresholed use Huang method
+// multiply auto threshold with a fixed factor (as is done in CellProfiler),
 // based on the observation that the threshold is consistently
 // , in our case, a bit too high, which may be due to
 // the fact that the majority of the image is foreground
-def threshold = Auto_Threshold.Huang(histogram) * 0.8
+if ( threshold == -1 )
+  threshold = Auto_Threshold.Huang(histogram) * 0.8
 println("Threshold: " + threshold)
 // create binary image of whole movie,
 // using the threshold of the first image
