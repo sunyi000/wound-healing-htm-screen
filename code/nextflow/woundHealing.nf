@@ -3,6 +3,7 @@ nextflow.enable.dsl=2
 // rm -rf work; nextflow run woundHealing.nf; cat work/*/*/.command.log; rm -rf .next*; rm -rf work
 
 params.inputDir = '/Users/tischer/Documents/daniel-heid-wound-healing/data/input'
+params.outDirName = 'analysis'
 //params.inputDir = '/Users/tischer/Desktop/untitled folder/input'
 params.fijiScript = '/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy'
 //params.fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx' // tischi's mac
@@ -20,7 +21,7 @@ process measureHealing {
   '''
   echo "Processing dataset:" !{key}
   echo "Contained files:" !{samples}
-  "!{params.fiji}" --ij2 --headless --run "!{params.fijiScript}" 'inputDir="!{params.inputDir}",datasetId="!{key}",threshold="!{params.threshold}",headless="true",saveResults="true"'
+  "!{params.fiji}" --ij2 --headless --run "!{params.fijiScript}" 'inputDir="!{params.inputDir}",datasetId="!{key}",threshold="!{params.threshold}",outDirName="!{params.outDirName}",headless="true",saveResults="true"'
   '''
 }
 
