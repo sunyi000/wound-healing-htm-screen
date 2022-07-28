@@ -32,11 +32,14 @@ import inra.ijpb.segment.Threshold
 #@ Double (label="CoV threshold (-1: auto)", default="-1") threshold
 #@ Boolean (label="Run headless", default="false") headless
 #@ Boolean (label="Save results", default="true") saveResults
+#@ String (label="Output directory name", default="analysis") outDirName
+
 
 
 // for developing in an IDE
 //def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
 //def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
+//def outDirName = "analysis"
 //def headless = true;
 //def saveResults = false;
 //new ImageJ().setVisible(true)
@@ -170,7 +173,7 @@ if (!headless) {
 //
 if ( saveResults ) {
     // create output directory
-    def outputDir = new File(inputDir.getParent(), "analysis");
+    def outputDir = new File(inputDir.getParent(), outDirName);
     println("Ensuring existence of output directory: " + outputDir)
     outputDir.mkdir()
     // save table
