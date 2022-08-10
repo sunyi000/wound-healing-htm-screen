@@ -12,6 +12,7 @@ import ij.IJ
 import ij.ImageJ
 import ij.ImagePlus
 import ij.gui.Roi
+import ij.measure.Calibration
 import ij.measure.Measurements
 import ij.measure.ResultsTable
 import ij.plugin.FolderOpener
@@ -34,13 +35,13 @@ import inra.ijpb.segment.Threshold
 #@ Boolean (label="Save results", default="true") saveResults
 #@ String (label="Output directory name", default="analysis") outDirName
 
-
-
-// for developing in an IDE
+// IDE
+//
 //def inputDir = new File("/Users/tischer/Documents/daniel-heid-wound-healing/data/input")
 //def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
 //def outDirName = "analysis"
-//def headless = true;
+//def threshold = 25
+//def headless = false;
 //def saveResults = false;
 //new ImageJ().setVisible(true)
 
@@ -81,19 +82,19 @@ def binnedImp = imp.duplicate() // keep for saving
 IJ.run(imp, "32-bit", "");
 // sdev
 def sdevImp = imp.duplicate()
-sdevImp.setTitle( datasetId + " sdev" )
+sdevImp.setTitle(datasetId + " sdev" )
 IJ.run(sdevImp, "Find Edges", "stack"); // removes larger structures, such as dirt in the background
 IJ.run(sdevImp, "Variance...", "radius=" + cellFilterRadius + " stack");
 IJ.run(sdevImp, "Square Root", "stack");
 // mean
 def meanImp = imp.duplicate()
-meanImp.setTitle( datasetId + " mean")
+meanImp.setTitle(datasetId + " mean")
 IJ.run(meanImp, "Mean...", "radius=" + cellFilterRadius + " stack");
 // cov
 def covImp = ImageCalculator.run(sdevImp, meanImp, "Divide create 32-bit stack");
 IJ.run(covImp, "Enhance Contrast", "saturated=0.35");
 IJ.run(covImp, "8-bit", ""); // otherwise the thresholding does not seem to work
-covImp.setTitle( datasetId + " cov" )
+covImp.setTitle(datasetId + " cov" )
 if (!headless) covImp.duplicate().show();
 // create binary image (cell-free regions are foreground)
 //
@@ -153,7 +154,7 @@ def scratchROI = scratchImp.getRoi()
 // `area_fraction` returns the fraction of foreground pixels
 // (cell free area) within the measurement ROI
 println("Performing measurements...")
-IJ.run("Set Measurements...", "area_fraction redirect=None decimal=2");
+IJ.run("Set Measurements...", "area bounding area_fraction redirect=None decimal=2");
 // RoiManager does not work headless: https://github.com/imagej/imagej-legacy/issues/153
 def rt = multiMeasure(binaryImp, scratchROI)
 
