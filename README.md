@@ -24,13 +24,29 @@ All data sets corresponding to the publication have been published at ... TODO.
 
 ## Analysis workflow
 
+The analysis is essentially done by one groovy script that can be executed within Fiji.
+
+Input:
+  - Please see the `/data/input` folder for example input 
+
+Output:
+  - ...
+  - Please see the `/data/analysis` folder for example output
+
 ### Analyse one dataset in the Fiji GUI
 
 - Open Fiji
 - Drag and drop the analysis script from this repo onto the Fiji Menu bar: `code/groovy/src/main/measureWoundClosing.groovy`
 - The Fiji script editor should have opened
 - In the script editor press the `Run` button
--   
+- Set the script parameters, e.g. as shown in below screenshot
+
+![](documentation/fiji-script-screenshot.jpg]
+
+The script will show and save the processed images along with the results table. 
+
+ 
+
 
 ### Analyse one dataset headles on the command line
 
