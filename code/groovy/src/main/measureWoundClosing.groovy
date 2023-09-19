@@ -1,25 +1,19 @@
 /**
  * This script runs in Fiji
  * It needs the Fiji update sites:
- * - IJPB-Plugins
- *
- *
+ * - IJPB-Plugins (MorpholibJ)
  */
 
 
 import fiji.threshold.Auto_Threshold
 import ij.IJ
-import ij.ImageJ
 import ij.ImagePlus
 import ij.gui.Roi
-import ij.measure.Calibration
 import ij.measure.Measurements
 import ij.measure.ResultsTable
 import ij.plugin.FolderOpener
 import ij.plugin.ImageCalculator
 import ij.plugin.filter.Analyzer
-import ij.plugin.filter.ThresholdToSelection
-import ij.plugin.frame.RoiManager
 import inra.ijpb.binary.BinaryImages
 import inra.ijpb.morphology.Morphology
 import inra.ijpb.morphology.Reconstruction
