@@ -4,12 +4,12 @@
   <parent>
     <groupId>org.scijava</groupId>
     <artifactId>pom-scijava</artifactId>
-    <version>30.0.0</version>
+    <version>36.0.0</version>
   </parent>
 
   <groupId>de.embl.cba</groupId>
-  <artifactId>FIXME</artifactId>
-  <version>0.0.1</version>
+  <artifactId>wound-healing-htm-screen</artifactId>
+  <version>1.0.0</version>
 
   <build>
     <pluginManagement>
@@ -22,7 +22,9 @@
     </pluginManagement>
   </build>
 
-  <!-- mvn clean compile -Denforcer.skip -->
+  <properties>
+    <enforcer.skip>true</enforcer.skip>
+  </properties>
 
   <repositories>
     <repository>
