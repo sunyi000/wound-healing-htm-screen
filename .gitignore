@@ -13,5 +13,7 @@ target
 *.class
 *~
 *.orig
-# For Fiji #
+#  Fiji #
 *.jar
+# Nextflow #
+**/work
