@@ -71,9 +71,10 @@ if ( imp == null  || imp.getNSlices() == 0 ) {
     System.exit(1)
 }
 
-// process the images
+// process the images to enhance regions with cells
+// using the fact the the cell regions have a higher local variance
 //
-println("Creating binary image...")
+println("Process images to enhance regions containing cells...")
 // remove scaling to work in pixel units
 IJ.run(imp,"Properties...", "pixel_width=1 pixel_height=1 voxel_depth=1");
 // bin to save compute time
@@ -99,6 +100,7 @@ if (!headless) covImp.duplicate().show();
 
 // create binary image (cell-free regions are foreground)
 //
+println("Creating binary image of cell-free regions...")
 // configure black background
 IJ.run("Options...", "iterations=1 count=1 black");
 // determine threshold in first frame, because there we are
