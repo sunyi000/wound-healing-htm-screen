@@ -1,4 +1,4 @@
-## Wound healding analysis workflow
+## Wound healing analysis workflow
 
 The analysis workflow automatically quantifies the closing of a scratch area (the wound) over time in brightfield microscopy images of a cell monolayer. To this end the regions of the image containing cells are segmented in all time points, using the fact that the local variance in the gray values of the image is higher in regions with cells. The central cell free are of the first timepoint will be taken as a reference ("the lesion"). The script measures the fraction of the lesion that is free of cells for each timepoint. This percentage will decrease over time. The resulting data, i.e., cell free percentage as a function of time, is output as a CSV table, which is then further analysed... 
 
@@ -40,7 +40,7 @@ Run the analysis:
 Input parameters:
 - `Input directory`: Folder containing sequences of 2D TIFF images, with naming scheme `${DATASET_ID}_${TIMEPOINT}.tif`
 - `Dataset ID`: Only images containing this dataset ID will be analysed
-- `CoV threshold (-1: auto)`: Threshold for segmenting cells after covariance filtering, use -1 for automated thresholding
+- `CoV threshold (-1: auto)`: Threshold for segmenting cells after covariance filtering; use -1 for automated thresholding; for the analysis in the publication we used a value of `25`
 - `Run headless`: Check this to not show any images during the analysis
 - `Save results`: Check this to save the results into the below directory 
 - `Output directory name (will be created next to input directory)`: Name of the output directory (this is not a full path, but just a single name, such as "output")
@@ -57,59 +57,44 @@ For automated batch analysis, e.g. in Nextflow, the analysis script needs to be 
 Command line call:
 
 ```
-${FIJI_EXE_PATH} --ij2 --headless --run ${GROOVY_SCRIPT_PATH} 'inputDir="${INPUT_DIR}",datasetId="${DATASET_ID}",headless="true"'
+${FIJI} --ij2 --headless --run ${GROOVY_SCRIPT_PATH} 'inputDir="${INPUT_DIR}",datasetId="${DATASET_ID}",headless="true"'
 ```
 
 Parameters:
 
-- `${FIJI_EXE_PATH}`: Fiji exectuable on your computer, e.g., `"/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx"`
+- `${FIJI}`: Fiji exectuable on your computer, e.g., `"/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx"`
 - `${GROOVY_SCRIPT_PATH}`: Wound healing groovy script on your computer, e.g., "/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy"
 - `${INPUT_DIR}`: Folder containing the image data, e.g., `"/Users/tischer/Documents/daniel-heid-wound-healing/data/input"`
 - `${DATASET_ID}`: Name of the data set to be analysed, e.g., "A3ROI2_Slow"
 
-### Batch analysis using nextflow
+### Batch analysis using Nextflow
 
 <details>
-<summary>EMBL internal installation instructions</summary>
+<summary>Nextflow on EMBL Jupyterhub (internal only)</summary>
 - Go to https://jupyterhub.embl.de
 - Choose "Image Analysis GPU"
 - Open a terminal window
-- Nextflow will be pre-installed
+- Nextflow will be available 
 </details>
 
 <details>
-<summary>General (non-EMBL) installation instructions</summary>
-- Install Nextflow (TODO)
-- Get access to the bash terminal window (TODO)
+<summary>Netxflow installation instructions</summary>
+- For installing Nextflow, we recommend
+  - Only once:
+    - Install [mambaforge](https://github.com/conda-forge/miniforge#mambaforge)
+    - `mamba create -n nextflow -c bioconda nextflow`
+  - Every time:
+    - `mamba active nextflow`
 </details>
 
 Run the analysis:
-- Requirements:
-  - You downloaded the repository (see above)
-  - You followed one of the above installation instructions
 - Open a terminal window
-
-  - `git pull`
-- go to the nextflow folder:
-  - `cd ./code/nextflow`
-
-#### Batch analysis using Nextflow
-
-Inside the repositories nextflow folder please execute below command.
-You need to replace all parametersa `${}`!
-
-`nextflow run woundHealing.nf --inputDir "${INPUT_DIR}" --fijiScript "${FIJI_SCRIPT}" --fiji "${FIJI}"`
-
-Example:
-
-- 
+- Navigate to the `code/nextflow` folder of this repository
+- Execute `nextflow run woundHealing.nf --inputDir "../../data/input" --fijiScript "../groovy/src/main/measureWoundClosing.groovy" --outDirName "output" --fiji "${FIJI}"`
+  - `${FIJI}`: Replace with a Fiji exectuable (containg the MorpholibJ update site) on your computer, e.g., `"/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx"`  
+  - If you want to run the analysis on other data, please replace the text behind the `--inputDir` parameter.
+- The output will be saved in a folder called `output` next to the input directory.
 
 Notes:
 
 - If you want to always clean up temporary Nextflow files you can use this extended command: `rm -rf work; nextflow run woundHealing.nf --inputDir "${INPUT_DIR}" --fijiScript "${FIJI_SCRIPT}" --fiji "${FIJI}"; cat work/*/*/.command.log; cat .nextflow.log; rm -rf .next*; rm -rf work`
-
-
-#### Batch analysis using Nextflow
-
-`rm -rf work; nextflow run woundHealing.nf --inputDir "/home/tischer/daniel-heid-wound-healing/data/input" --fijiScript "/home/tischer/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy" --fiji fiji;cat work/*/*/.command.log; cat .nextflow.log; rm -rf .next*; rm -rf work`
-

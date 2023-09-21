@@ -1,6 +1,6 @@
-# Wound healing image analysis
+# Wound healing scratch assay image analysis
 
-This project is about the quantification of wound healing in automated high-throughput microscopy scratch assays.
+This project is about the automated quantification of wound healing in high-throughput microscopy scratch assays.
 
 ## Data management
 
@@ -9,3 +9,7 @@ This project is about the quantification of wound healing in automated high-thro
 ## Analysis workflow
 
 [Analysis workflow](analysis_workflow.md)
+
+## Publication
+
+This analysis was used in **TBA**.
