@@ -22,14 +22,15 @@ Some analysis steps require additional dependencies, they will be mentioned in t
 ### Analyse one dataset in the Fiji GUI
 
 <details>
-<summary>Installation</summary>
+<summary>Installation instructions</summary>
 - [Install Fiji](https://fiji.sc/)
 - Start Fiji and [add the following update sites]():
   - IJPB-Plugins (MorpholibJ)
 </details>
 
+Run the analysis:
 - Open Fiji
-- Drag and drop the analysis script (`code/groovy/src/main/measureWoundClosing.groovy`) from this repo onto the Fiji Menu bar
+- Drag and drop the `code/groovy/src/main/measureWoundClosing.groovy` script onto the Fiji Menu bar
 - The Fiji script editor will open
 - In the script editor press the `Run` button
 - Set the script parameters, similar as in the below screenshot
@@ -51,22 +52,43 @@ Output:
 
 ### Analyse one dataset headles on the command line
 
-`${FIJI_EXE_PATH} --ij2 --headless --run ${GROOVY_SCRIPT_PATH} 'inputDir="${INPUT_DIR}",datasetId="${DATASET_ID}",headless="true"'`
+For automated batch analysis, e.g. in Nextflow, the analysis script needs to be executed from the command line. Below code and explanations show how to do this.
+
+Command line call:
+
+```
+${FIJI_EXE_PATH} --ij2 --headless --run ${GROOVY_SCRIPT_PATH} 'inputDir="${INPUT_DIR}",datasetId="${DATASET_ID}",headless="true"'
+```
+
+Parameters:
 
 - `${FIJI_EXE_PATH}`: Fiji exectuable on your computer, e.g., `"/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx"`
 - `${GROOVY_SCRIPT_PATH}`: Wound healing groovy script on your computer, e.g., "/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy"
 - `${INPUT_DIR}`: Folder containing the image data, e.g., `"/Users/tischer/Documents/daniel-heid-wound-healing/data/input"`
 - `${DATASET_ID}`: Name of the data set to be analysed, e.g., "A3ROI2_Slow"
 
-### Perform batch analysis using nextflow
+### Batch analysis using nextflow
 
-- go to https://jupyterhub.embl.de
-- choose "Image Analysis GPU"
-- open a terminal window
-- fetch this repo (only need to do this the first time):
-  - `git clone https://git.embl.de/grp-cba/wound-healing-htm-screen.git`
-- `cd daniel-heid-wound-healing`
-- update all scripts:
+<details>
+<summary>EMBL internal installation instructions</summary>
+- Go to https://jupyterhub.embl.de
+- Choose "Image Analysis GPU"
+- Open a terminal window
+- Nextflow will be pre-installed
+</details>
+
+<details>
+<summary>General (non-EMBL) installation instructions</summary>
+- Install Nextflow (TODO)
+- Get access to the bash terminal window (TODO)
+</details>
+
+Run the analysis:
+- Requirements:
+  - You downloaded the repository (see above)
+  - You followed one of the above installation instructions
+- Open a terminal window
+
   - `git pull`
 - go to the nextflow folder:
   - `cd ./code/nextflow`
