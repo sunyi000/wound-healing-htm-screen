@@ -25,22 +25,22 @@ import net.imagej.ImageJ
 
 // INPUT UI AND CLI
 //
-//#@ File (label="Input directory", style="directory") inputDir
-//#@ String (label="Dataset ID") datasetId
-//#@ Double (label="CoV threshold (-1: auto)", default="-1") threshold
-//#@ Boolean (label="Run headless", default="false") headless
-//#@ Boolean (label="Save results", default="true") saveResults
-//#@ String (label="Output directory name (will be created next to input directory)", default="analysis") outDirName
+#@ File (label="Input directory", style="directory") inputDir
+#@ String (label="Dataset ID") datasetId
+#@ Double (label="CoV threshold (-1: auto)", default="-1") threshold
+#@ Boolean (label="Run headless", default="false") headless
+#@ Boolean (label="Save results", default="true") saveResults
+#@ String (label="Output directory name (will be created next to input directory)", default="analysis") outDirName
 
 // INPUT FOR TESTING WITHIN IDE
 //
-def inputDir = new File("/Users/tischer/Documents/wound-healing-htm-screen/data/input")
-def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
-def outDirName = "analysis"
-def threshold = (double) -1.0 // auto
-def headless = false;
-def saveResults = false;
-new ij.ImageJ().setVisible(true)
+//def inputDir = new File("/Users/tischer/Documents/wound-healing-htm-screen/data/input")
+//def datasetId = "A3ROI2_Slow"; // C4ROI1_Fast A3ROI2_Slow
+//def outDirName = "analysis"
+//def threshold = (double) -1.0 // auto
+//def headless = false;
+//def saveResults = false;
+//new ij.ImageJ().setVisible(true)
 
 // FIXED PARAMETERS
 //

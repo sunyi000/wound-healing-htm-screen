@@ -2,18 +2,23 @@ nextflow.enable.dsl=2
 
 // rm -rf work; nextflow run woundHealing.nf; cat work/*/*/.command.log; rm -rf .next*; rm -rf work
 
-params.inputDir = '/Users/tischer/Documents/daniel-heid-wound-healing/data/input'
+// Default parameters (will be overwritten by CLI input)
+//
 params.outDirName = 'analysis'
-//params.inputDir = '/Users/tischer/Desktop/untitled folder/input'
-params.fijiScript = '/Users/tischer/Documents/daniel-heid-wound-healing/code/groovy/src/main/measureWoundClosing.groovy'
-//params.fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx' // tischi's mac
-params.fiji = 'fiji' // jupyter desktop
+//params.fiji = '/Users/tischer/Desktop/Fiji/Fiji.app/Contents/MacOS/ImageJ-macosx' // on tischi's mac
+params.fiji = 'fiji' // on jupyter desktop
 params.threshold = 25
 
-// derived parameters
+// Derived parameters
+//
 inputFiles = params.inputDir + "/*.tif"
 
+// Workflow
+//
+!{params.fijiScript}
 process measureHealing {
+  debug true
+
   input:
     tuple val(key), file(samples)
 
@@ -21,7 +26,9 @@ process measureHealing {
   '''
   echo "Processing dataset:" !{key}
   echo "Contained files:" !{samples}
+  echo "Fiji script:" !{params.fijiScript}
   "!{params.fiji}" --ij2 --headless --run "!{params.fijiScript}" 'inputDir="!{params.inputDir}",datasetId="!{key}",threshold="!{params.threshold}",outDirName="!{params.outDirName}",headless="true",saveResults="true"'
+  echo "Done: " !{key}
   '''
 }
 

@@ -1,0 +1,24 @@
+Processing dataset: A3ROI2_Slow
+Contained files: A3ROI2_Slow_0010.tif A3ROI2_Slow_0004.tif A3ROI2_Slow_0005.tif A3ROI2_Slow_0011.tif A3ROI2_Slow_0007.tif A3ROI2_Slow_0006.tif A3ROI2_Slow_0002.tif A3ROI2_Slow_0003.tif A3ROI2_Slow_0001.tif A3ROI2_Slow_0000.tif A3ROI2_Slow_0008.tif A3ROI2_Slow_0009.tif
+Fiji script: /Users/tischer/Documents/wound-healing-htm-screen/code/groovy/src/main/measureWoundClosing.groovy
+[INFO] Overriding Leica ROI Reader; identifier: command:de.biovoxxel.utilities.RoiReader; jar: file:/Users/tischer/Desktop/Fiji/Fiji.app/plugins/Biovoxxel_Plugins-2.6.0.jar
+[INFO] Overriding Create framed inset Zoom; identifier: command:inset.creator.Inset_Creator; jar: file:/Users/tischer/Desktop/Fiji/Fiji.app/plugins/BioVoxxel_Figure_Tools-1.13.1.jar
+[INFO] Overriding Export SVG; identifier: command:svg.gui.SVGExporter; jar: file:/Users/tischer/Desktop/Fiji/Fiji.app/plugins/BioVoxxel_Figure_Tools-1.13.1.jar
+[INFO] Overriding Export all images as SVG; identifier: command:svg.gui.BatchSvgExporter; jar: file:/Users/tischer/Desktop/Fiji/Fiji.app/plugins/BioVoxxel_Figure_Tools-1.13.1.jar
+[INFO] Overriding Export time series as SVGs; identifier: command:svg.gui.TimeSeriesSvgExporter; jar: file:/Users/tischer/Desktop/Fiji/Fiji.app/plugins/BioVoxxel_Figure_Tools-1.13.1.jar
+[INFO] Overriding Import images from SVG; identifier: command:svg.gui.SVGImageImporter; jar: file:/Users/tischer/Desktop/Fiji/Fiji.app/plugins/BioVoxxel_Figure_Tools-1.13.1.jar
+[INFO] Overriding LUT Channels Tool; identifier: command:lut.tool.LutChannelsTool; jar: file:/Users/tischer/Desktop/Fiji/Fiji.app/plugins/BioVoxxel_Figure_Tools-1.13.1.jar
+[INFO] Overriding Meta-D-Rex; identifier: command:metadataRecorder.MetadataRecorder; jar: file:/Users/tischer/Desktop/Fiji/Fiji.app/plugins/BioVoxxel_Figure_Tools-1.13.1.jar
+[INFO] Overriding Start IJ Scale Bar; identifier: command:svg.gui.StartJIScaleBar; jar: file:/Users/tischer/Desktop/Fiji/Fiji.app/plugins/BioVoxxel_Figure_Tools-1.13.1.jar
+Cell filter radius: 10
+Scratch filter radius: 250
+Opening: A3ROI2_Slow
+Number of slices: 12
+Process images to enhance regions containing cells...
+Creating binary image of cell-free regions...
+Threshold: 25.0
+Creating scratch ROI...
+Performing measurements...
+Ensuring existence of output directory: /Users/tischer/Documents/wound-healing-htm-screen/data/output
+Analysis of A3ROI2_Slow is done!
+Done:  A3ROI2_Slow
