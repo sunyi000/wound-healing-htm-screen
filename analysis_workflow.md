@@ -23,8 +23,9 @@ Some analysis steps require additional dependencies, they will be mentioned in t
 
 <details>
 <summary>Installation instructions</summary>
+
 - [Install Fiji](https://fiji.sc/)
-- Start Fiji and [add the following update sites]():
+- Start Fiji and [add the following update sites](https://imagej.net/update-sites/):
   - IJPB-Plugins (MorpholibJ)
 </details>
 
