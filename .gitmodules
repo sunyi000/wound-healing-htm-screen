@@ -1,0 +1,3 @@
+[submodule "wound-healing-galaxytool"]
+	path = wound-healing-galaxytool
+	url = https://git.embl.de/ysun/wound-healing-galaxytool.git
