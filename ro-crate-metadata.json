@@ -1,0 +1,428 @@
+{
+    "@context": "https://w3id.org/ro/crate/1.1/context",
+    "@graph": [
+        {
+            "@id": "./",
+            "@type": "Dataset",
+            "datePublished": "2023-11-20T14:51:59+00:00",
+            "hasPart": [
+                {
+                    "@id": "assets/"
+                },
+                {
+                    "@id": "bin/"
+                },
+                {
+                    "@id": "conf/"
+                },
+                {
+                    "@id": "docs/"
+                },
+                {
+                    "@id": "lib/"
+                },
+                {
+                    "@id": "workflows/"
+                },
+                {
+                    "@id": ".gitignore"
+                },
+                {
+                    "@id": "CHANGELOG.md"
+                },
+                {
+                    "@id": "LICENSE"
+                },
+                {
+                    "@id": "README.md"
+                },
+                {
+                    "@id": "assets/data/"
+                },
+                {
+                    "@id": "assets/fiji-script-screenshot.jpg"
+                },
+                {
+                    "@id": "assets/icon.jpg"
+                },
+                {
+                    "@id": "assets/data/input/"
+                },
+                {
+                    "@id": "assets/data/output/"
+                },
+                {
+                    "@id": "assets/data/input/.gitkeep"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0000.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0001.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0002.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0003.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0004.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0005.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0006.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0007.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0008.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0009.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0010.tif"
+                },
+                {
+                    "@id": "assets/data/input/A3ROI2_Slow_0011.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0000.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0001.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0002.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0003.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0004.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0005.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0006.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0007.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0008.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0009.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0010.tif"
+                },
+                {
+                    "@id": "assets/data/input/C4ROI1_Fast_0011.tif"
+                },
+                {
+                    "@id": "assets/data/output/A3ROI2_Slow.csv"
+                },
+                {
+                    "@id": "assets/data/output/A3ROI2_Slow.tif"
+                },
+                {
+                    "@id": "assets/data/output/C4ROI1_Fast.csv"
+                },
+                {
+                    "@id": "assets/data/output/C4ROI1_Fast.tif"
+                },
+                {
+                    "@id": "bin/measureWoundClosing.groovy"
+                },
+                {
+                    "@id": "conf/base.config"
+                },
+                {
+                    "@id": "conf/modules.config"
+                },
+                {
+                    "@id": "conf/nextflow.config"
+                },
+                {
+                    "@id": "conf/test.config"
+                },
+                {
+                    "@id": "conf/test_full.config"
+                },
+                {
+                    "@id": "docs/analysis_workflow.md"
+                },
+                {
+                    "@id": "docs/data_management.md"
+                },
+                {
+                    "@id": "lib/NfcoreSchema.groovy"
+                },
+                {
+                    "@id": "lib/NfcoreTemplate.groovy"
+                },
+                {
+                    "@id": "lib/Utils.groovy"
+                },
+                {
+                    "@id": "lib/WorkflowMain.groovy"
+                },
+                {
+                    "@id": "lib/WorkflowPipeline.groovy"
+                },
+                {
+                    "@id": "workflows/main.nf"
+                }
+            ]
+        },
+        {
+            "@id": "ro-crate-metadata.json",
+            "@type": "CreativeWork",
+            "about": {
+                "@id": "./"
+            },
+            "conformsTo": {
+                "@id": "https://w3id.org/ro/crate/1.1"
+            }
+        },
+        {
+            "@id": "assets/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "bin/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "conf/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "docs/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "lib/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "workflows/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": ".gitignore",
+            "@type": "File"
+        },
+        {
+            "@id": "CHANGELOG.md",
+            "@type": "File"
+        },
+        {
+            "@id": "LICENSE",
+            "@type": "File"
+        },
+        {
+            "@id": "README.md",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "assets/fiji-script-screenshot.jpg",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/icon.jpg",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "assets/data/output/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "assets/data/input/.gitkeep",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0000.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0001.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0002.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0003.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0004.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0005.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0006.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0007.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0008.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0009.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0010.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/A3ROI2_Slow_0011.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0000.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0001.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0002.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0003.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0004.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0005.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0006.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0007.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0008.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0009.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0010.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/input/C4ROI1_Fast_0011.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/output/A3ROI2_Slow.csv",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/output/A3ROI2_Slow.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/output/C4ROI1_Fast.csv",
+            "@type": "File"
+        },
+        {
+            "@id": "assets/data/output/C4ROI1_Fast.tif",
+            "@type": "File"
+        },
+        {
+            "@id": "bin/measureWoundClosing.groovy",
+            "@type": "File"
+        },
+        {
+            "@id": "conf/base.config",
+            "@type": "File"
+        },
+        {
+            "@id": "conf/modules.config",
+            "@type": "File"
+        },
+        {
+            "@id": "conf/nextflow.config",
+            "@type": "File"
+        },
+        {
+            "@id": "conf/test.config",
+            "@type": "File"
+        },
+        {
+            "@id": "conf/test_full.config",
+            "@type": "File"
+        },
+        {
+            "@id": "docs/analysis_workflow.md",
+            "@type": "File"
+        },
+        {
+            "@id": "docs/data_management.md",
+            "@type": "File"
+        },
+        {
+            "@id": "lib/NfcoreSchema.groovy",
+            "@type": "File"
+        },
+        {
+            "@id": "lib/NfcoreTemplate.groovy",
+            "@type": "File"
+        },
+        {
+            "@id": "lib/Utils.groovy",
+            "@type": "File"
+        },
+        {
+            "@id": "lib/WorkflowMain.groovy",
+            "@type": "File"
+        },
+        {
+            "@id": "lib/WorkflowPipeline.groovy",
+            "@type": "File"
+        },
+        {
+            "@id": "workflows/main.nf",
+            "@type": "File"
+        }
+    ]
+}
